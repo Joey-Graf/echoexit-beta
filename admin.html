@@ -124,26 +124,43 @@
             color: #4A6B70;
             font-size: 0.9rem;
         }
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #1DB5B5;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <script>
-    // Staging password protection
-    if (!sessionStorage.getItem('staging_auth')) {
-        const pwd = prompt('Enter staging password:');
-        if (pwd !== 'EchoExit2025') {
-            document.body.innerHTML = '<div style="padding: 50px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>This is a private staging site.</p><p>Contact echoexitadm@gmail.com for access.</p></div>';
-            throw new Error('Unauthorized');
+    // Check if user is authenticated from main site
+    (function() {
+        const AUTH_KEY = 'echoexit_staging_auth';
+        const AUTH_EXPIRY_KEY = 'echoexit_staging_expiry';
+        
+        const isAuthenticated = sessionStorage.getItem(AUTH_KEY);
+        const authExpiry = sessionStorage.getItem(AUTH_EXPIRY_KEY);
+        const now = new Date().getTime();
+        
+        // If not authenticated or expired, redirect to main page
+        if (!isAuthenticated || !authExpiry || now > parseInt(authExpiry)) {
+            sessionStorage.removeItem(AUTH_KEY);
+            sessionStorage.removeItem(AUTH_EXPIRY_KEY);
+            window.location.href = 'index.html';
         }
-        sessionStorage.setItem('staging_auth', 'true');
-    }
+    })();
     </script>
 
     <div class="admin-container">
         <!-- Login Form -->
         <div id="loginForm">
             <div class="admin-header">
-                <img src="echoexit-logo.png" alt="EchoExit">
+                <img src="echoexit-logo.png" alt="EchoExit" onerror="this.style.display='none'">
                 <h1>Admin Portal</h1>
                 <p class="subtitle">Authorized personnel only</p>
             </div>
@@ -151,12 +168,13 @@
             <input type="password" id="password" placeholder="Password">
             <button onclick="login()">Login to Dashboard</button>
             <p id="error"></p>
+            <a href="index.html" class="back-link">← Back to Main Site</a>
         </div>
 
         <!-- Dashboard (hidden initially) -->
         <div id="dashboard" class="dashboard">
             <div class="admin-header">
-                <img src="echoexit-logo.png" alt="EchoExit">
+                <img src="echoexit-logo.png" alt="EchoExit" onerror="this.style.display='none'">
                 <h2>Admin Dashboard</h2>
             </div>
             
@@ -183,6 +201,7 @@
             </div>
             
             <button onclick="logout()" class="logout-btn">Logout</button>
+            <a href="index.html" class="back-link">← Back to Main Site</a>
         </div>
     </div>
 
@@ -192,7 +211,7 @@
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
         import { getFirestore, collection, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
 
-        // Your Firebase configuration (already filled in!)
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyA5WBjPac6S0rcDNuMe95KasNhe_7O68DQ",
             authDomain: "echoexit-374db.firebaseapp.com",
@@ -230,6 +249,8 @@
                     document.getElementById('error').textContent = 'Incorrect password';
                 } else if (error.code === 'auth/invalid-email') {
                     document.getElementById('error').textContent = 'Invalid email format';
+                } else if (error.code === 'auth/invalid-credential') {
+                    document.getElementById('error').textContent = 'Invalid credentials. Please check email and password.';
                 } else {
                     document.getElementById('error').textContent = 'Login failed. Please try again.';
                 }
@@ -325,6 +346,12 @@
         document.getElementById('password').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 login();
+            }
+        });
+        
+        document.getElementById('email').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('password').focus();
             }
         });
     </script>
