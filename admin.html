@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoExit Admin</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F1F21 0%, #1A2B2E 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .admin-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .admin-header img {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            color: #1DB5B5;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #1A2B2E;
+            margin-bottom: 1.5rem;
+        }
+        h3 {
+            color: #1A2B2E;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        input:focus {
+            outline: none;
+            border-color: #1DB5B5;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1DB5B5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #17999B;
+        }
+        .logout-btn {
+            background: #E53E3E;
+        }
+        .logout-btn:hover {
+            background: #C53030;
+        }
+        .dashboard {
+            display: none;
+        }
+        .dashboard.active {
+            display: block;
+        }
+        .stats {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .stat-card {
+            padding: 1.5rem;
+            background: #F7FAFC;
+            border-radius: 8px;
+            border-left: 4px solid #1DB5B5;
+        }
+        .stat-number {
+            font-size: 2rem;
+            color: #1DB5B5;
+            font-weight: bold;
+        }
+        #error {
+            color: #E53E3E;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .recent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+        .recent-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #E2E8F0;
+            color: #4A6B70;
+            font-size: 0.9rem;
+        }
+        .loading {
+            color: #4A6B70;
+            font-style: italic;
+        }
+        .subtitle {
+            color: #4A6B70;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <script>
+    // Staging password protection
+    if (!sessionStorage.getItem('staging_auth')) {
+        const pwd = prompt('Enter staging password:');
+        if (pwd !== 'EchoExit2025') {
+            document.body.innerHTML = '<div style="padding: 50px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>This is a private staging site.</p><p>Contact echoexitadm@gmail.com for access.</p></div>';
+            throw new Error('Unauthorized');
+        }
+        sessionStorage.setItem('staging_auth', 'true');
+    }
+    </script>
+
+    <div class="admin-container">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <div class="admin-header">
+                <img src="echoexit-logo.png" alt="EchoExit">
+                <h1>Admin Portal</h1>
+                <p class="subtitle">Authorized personnel only</p>
+            </div>
+            <input type="email" id="email" placeholder="Admin Email">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login to Dashboard</button>
+            <p id="error"></p>
+        </div>
+
+        <!-- Dashboard (hidden initially) -->
+        <div id="dashboard" class="dashboard">
+            <div class="admin-header">
+                <img src="echoexit-logo.png" alt="EchoExit">
+                <h2>Admin Dashboard</h2>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Total Waitlist Signups</h3>
+                    <p class="stat-number" id="signupCount">Loading...</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Demo Completions</h3>
+                    <p class="stat-number" id="demoCount">Loading...</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Recent Signups (Last 5)</h3>
+                    <div id="recentSignups" class="loading">Loading...</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Export Data</h3>
+                    <button onclick="exportToCSV()">Download Waitlist CSV</button>
+                </div>
+            </div>
+            
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
+
+        // Your Firebase configuration (already filled in!)
+        const firebaseConfig = {
+            apiKey: "AIzaSyA5WBjPac6S0rcDNuMe95KasNhe_7O68DQ",
+            authDomain: "echoexit-374db.firebaseapp.com",
+            projectId: "echoexit-374db",
+            storageBucket: "echoexit-374db.firebasestorage.app",
+            messagingSenderId: "260179568561",
+            appId: "1:260179568561:web:34a35ff5d4ba27693aff90",
+            measurementId: "G-8XWQM6BH1H"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+
+        // Make functions available globally
+        window.login = async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                document.getElementById('error').textContent = 'Please enter email and password';
+                return;
+            }
+            
+            try {
+                document.getElementById('error').textContent = 'Logging in...';
+                await signInWithEmailAndPassword(auth, email, password);
+                document.getElementById('error').textContent = '';
+            } catch (error) {
+                console.error('Login error:', error);
+                if (error.code === 'auth/user-not-found') {
+                    document.getElementById('error').textContent = 'No admin user found with this email';
+                } else if (error.code === 'auth/wrong-password') {
+                    document.getElementById('error').textContent = 'Incorrect password';
+                } else if (error.code === 'auth/invalid-email') {
+                    document.getElementById('error').textContent = 'Invalid email format';
+                } else {
+                    document.getElementById('error').textContent = 'Login failed. Please try again.';
+                }
+            }
+        };
+
+        window.logout = () => {
+            signOut(auth);
+        };
+
+        window.exportToCSV = async () => {
+            try {
+                const waitlistSnapshot = await getDocs(collection(db, 'waitlist'));
+                let csv = 'Email,Timestamp,Source\n';
+                
+                waitlistSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    const timestamp = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : 'N/A';
+                    csv += `"${data.email}","${timestamp}","${data.source || 'website'}"\n`;
+                });
+                
+                // Create download link
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `echoexit_waitlist_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Error exporting data. Please try again.');
+            }
+        };
+
+        // Check authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in - show dashboard
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                loadDashboardData();
+            } else {
+                // No user signed in - show login
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('dashboard').classList.remove('active');
+            }
+        });
+
+        async function loadDashboardData() {
+            try {
+                // Get waitlist count
+                const waitlistSnapshot = await getDocs(collection(db, 'waitlist'));
+                document.getElementById('signupCount').textContent = waitlistSnapshot.size || '0';
+
+                // Get demo completions count
+                const demoSnapshot = await getDocs(collection(db, 'demo_completions'));
+                document.getElementById('demoCount').textContent = demoSnapshot.size || '0';
+
+                // Get recent signups
+                let recentHTML = '<ul class="recent-list">';
+                if (waitlistSnapshot.size > 0) {
+                    const recentQuery = query(
+                        collection(db, 'waitlist'), 
+                        orderBy('timestamp', 'desc'), 
+                        limit(5)
+                    );
+                    const recentSnapshot = await getDocs(recentQuery);
+                    
+                    recentSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        const date = data.timestamp ? 
+                            new Date(data.timestamp.seconds * 1000).toLocaleDateString() : 
+                            'No date';
+                        recentHTML += `<li>${data.email} - ${date}</li>`;
+                    });
+                } else {
+                    recentHTML += '<li>No signups yet</li>';
+                }
+                recentHTML += '</ul>';
+                document.getElementById('recentSignups').innerHTML = recentHTML;
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                document.getElementById('signupCount').textContent = 'Error';
+                document.getElementById('demoCount').textContent = 'Error';
+                document.getElementById('recentSignups').innerHTML = '<p style="color: red;">Error loading data</p>';
+            }
+        }
+
+        // Allow Enter key to submit login
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>

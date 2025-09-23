@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoExit - Complete Digital Legacy Demo</title>
+    <meta name="description" content="Experience the full power of EchoExit: Calculate your digital death costs and build your digital legacy memorial.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1DB5B5;
+            --primary-dark: #17999B;
+            --accent: #FDB462;
+            --text: #1A2B2E;
+            --text-light: #4A6B70;
+            --bg: #FFFFFF;
+            --bg-light: #F7FAFC;
+            --border: #E2E8F0;
+            --success: #48BB78;
+            --dark-bg: #0F1F21;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F1F21 0%, #1A2B2E 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .demo-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            width: 8%;
+            transition: width 0.5s ease;
+        }
+        
+        .demo-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        
+        .demo-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .step-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+        
+        .demo-body {
+            padding: 3rem;
+            min-height: 500px;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-text h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .welcome-text p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .step h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+            text-align: center;
+        }
+        
+        .step > p {
+            color: var(--text-light);
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 2rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .input-group input, 
+        .input-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .input-group input:focus, 
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(29, 181, 181, 0.1);
+        }
+        
+        .subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+        
+        .subscription-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .subscription-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .subscription-item.selected {
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.1), rgba(23, 153, 155, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .subscription-item input {
+            margin-right: 0.8rem;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+        
+        .subscription-info {
+            flex: 1;
+        }
+        
+        .subscription-name {
+            font-weight: 600;
+            color: var(--text);
+            display: block;
+        }
+        
+        .subscription-price {
+            color: #E65100;
+            font-size: 0.9rem;
+        }
+        
+        .total-display {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(29, 181, 181, 0.2);
+        }
+        
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .yearly-amount {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #F56565, var(--accent), var(--primary));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -33px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #F56565;
+        }
+        
+        .timeline-content h3 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .impact-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #E65100;
+            display: block;
+            margin: 0.5rem 0;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .template-card {
+            padding: 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .template-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .template-card.selected {
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.1), rgba(23, 153, 155, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .template-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .template-card h4 {
+            color: var(--text);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .template-card p {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .photo-item {
+            aspect-ratio: 1;
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .photo-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .photo-item.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.1), rgba(23, 153, 155, 0.05));
+        }
+        
+        .photo-item.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .achievement-list {
+            margin-bottom: 2rem;
+        }
+        
+        .achievement-category {
+            margin-bottom: 1.5rem;
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        
+        .achievement-category h4 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .achievement-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .achievement-item {
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .achievement-item input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        
+        .achievement-item input:focus {
+            outline: none;
+        }
+        
+        .message-composer {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .message-composer label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .tone-selector {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tone-btn {
+            padding: 0.6rem 1.2rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .tone-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .tone-btn.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .memorial-preview {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .memorial-header {
+            background: linear-gradient(135deg, var(--dark-bg), var(--text));
+            color: white;
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .memorial-photo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        
+        .memorial-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .memorial-dates {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .memorial-quote {
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .memorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .memorial-nav-item {
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .memorial-nav-item:hover {
+            color: var(--primary);
+        }
+        
+        .memorial-nav-item.active {
+            color: var(--primary);
+            font-weight: 600;
+            background: white;
+        }
+        
+        .memorial-content {
+            padding: 2rem;
+        }
+        
+        .memorial-section {
+            display: none;
+        }
+        
+        .memorial-section.active {
+            display: block;
+        }
+        
+        .memorial-section h3 {
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+        
+        .memorial-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .memorial-photo-item {
+            aspect-ratio: 1;
+            background: var(--bg-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-align: center;
+            padding: 0.5rem;
+        }
+        
+        .memorial-achievements {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .memorial-achievement-group {
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+        
+        .memorial-achievement-group h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .memorial-achievement-group ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .memorial-achievement-group li {
+            padding: 0.3rem 0;
+            color: var(--text-light);
+        }
+        
+        .memorial-message {
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.05), rgba(23, 153, 155, 0.05));
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.8;
+            border: 1px solid rgba(29, 181, 181, 0.1);
+        }
+        
+        .memorial-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .memorial-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .features-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .add-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .add-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(29, 181, 181, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(29, 181, 181, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(29, 181, 181, 0.4);
+        }
+        
+        .btn-cta {
+            background: var(--accent);
+            color: var(--text);
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .btn-cta:hover {
+            background: #FCA346;
+            transform: translateY(-2px);
+        }
+        
+        .final-summary {
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.1), rgba(23, 153, 155, 0.05));
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .summary-section h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .summary-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .summary-list li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .summary-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .pricing-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(29, 181, 181, 0.05), rgba(23, 153, 155, 0.05));
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-card h3 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .pricing-comparison {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-label.special {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1rem;
+        }
+        
+        .price-new {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .discount-badge {
+            color: var(--success);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .demo-body {
+                padding: 2rem 1.5rem;
+            }
+            
+            .subscriptions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .template-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .tone-selector {
+                flex-direction: column;
+            }
+            
+            .memorial-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .pricing-comparison {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .demo-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-text h2 {
+                font-size: 1.5rem;
+            }
+            
+            .step h2 {
+                font-size: 1.4rem;
+            }
+            
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .total-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+    // Staging password protection
+    if (!sessionStorage.getItem('staging_auth')) {
+        const pwd = prompt('Enter staging password:');
+        if (pwd !== 'EchoExit2025') {
+            document.body.innerHTML = '<div style="padding: 50px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>This is a private staging site.</p><p>Contact echoexitadm@gmail.com for access.</p></div>';
+            throw new Error('Unauthorized');
+        }
+        sessionStorage.setItem('staging_auth', 'true');
+    }
+    </script>
+
+    <div class="demo-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        
+        <div class="demo-header">
+            <h1 id="mainTitle">Your Digital Legacy Calculator</h1>
+            <div class="step-indicator">
+                <span class="step-dot active"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+                <span class="step-dot"></span>
+            </div>
+        </div>
+        
+        <div class="demo-body">
+            <!-- Step 1: Welcome -->
+            <div class="step active" id="step1">
+                <div class="welcome-icon">🔍</div>
+                <div class="welcome-text">
+                    <h2>Your Digital Life After Death</h2>
+                    <p>Discover how to save your family money AND preserve your memories forever. This interactive demo shows you exactly what happens to your 130+ accounts and how to create a beautiful digital memorial.</p>
+                </div>
+                <div class="navigation">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="nextStep()">Start Your Journey →</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Personal Info -->
+            <div class="step" id="step2">
+                <h2>Let's Personalize Your Experience</h2>
+                <p>Tell us about yourself to create a customized demo experience.</p>
+                
+                <div class="input-group">
+                    <label>Your First Name</label>
+                    <input type="text" id="userName" placeholder="Enter your name" value="John">
+                </div>
+                
+                <div class="input-group">
+                    <label>Your Spouse/Partner's Name</label>
+                    <input type="text" id="spouseName" placeholder="Who would handle your accounts?" value="Sarah">
+                </div>
+                
+                <div class="input-group">
+                    <label>Your Life Motto (Optional)</label>
+                    <input type="text" id="lifeMotto" placeholder="e.g., 'Living one adventure at a time'" value="Living one adventure at a time">
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Continue →</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Subscription Selection -->
+            <div class="step" id="step3">
+                <h2>Your Active Subscriptions</h2>
+                <p>Select all services you currently pay for</p>
+                
+                <div class="subscriptions-grid">
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Netflix', 15.99)">
+                        <input type="checkbox" checked>
+                        <div class="subscription-info">
+                            <span class="subscription-name">Netflix</span>
+                            <span class="subscription-price">$15.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Spotify', 9.99)">
+                        <input type="checkbox" checked>
+                        <div class="subscription-info">
+                            <span class="subscription-name">Spotify</span>
+                            <span class="subscription-price">$9.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Disney+', 7.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Disney+</span>
+                            <span class="subscription-price">$7.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Amazon Prime', 14.99)">
+                        <input type="checkbox" checked>
+                        <div class="subscription-info">
+                            <span class="subscription-name">Amazon Prime</span>
+                            <span class="subscription-price">$14.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Adobe Creative', 54.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Adobe Creative</span>
+                            <span class="subscription-price">$54.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'YouTube Premium', 13.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">YouTube Premium</span>
+                            <span class="subscription-price">$13.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Hulu', 17.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Hulu</span>
+                            <span class="subscription-price">$17.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Apple Music', 10.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Apple Music</span>
+                            <span class="subscription-price">$10.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Microsoft 365', 12.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Microsoft 365</span>
+                            <span class="subscription-price">$12.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Dropbox', 9.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Dropbox</span>
+                            <span class="subscription-price">$9.99/mo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="total-display">
+                    <div class="total-amount">$<span id="monthlyTotal">40.97</span>/month</div>
+                    <div class="yearly-amount">That's $<span id="yearlyTotal">491.64</span> wasted per year after you're gone</div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">See Impact →</button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Impact Timeline -->
+            <div class="step" id="step4">
+                <h2>💔 Without EchoExit...</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Day 1: Tragedy Strikes</h3>
+                            <p><span id="spouseDisplay">Sarah</span> is overwhelmed with grief and funeral arrangements.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: #FDB462;"></div>
+                        <div class="timeline-content">
+                            <h3>Month 1: Bills Keep Coming</h3>
+                            <p class="impact-number">$<span id="monthlyImpact">40.97</span> charged</p>
+                            <p>No access to accounts, no way to cancel.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: #1DB5B5;"></div>
+                        <div class="timeline-content">
+                            <h3>Year 1: Mounting Losses</h3>
+                            <p class="impact-number">$<span id="yearlyImpact">491.64</span> wasted</p>
+                            <p>Plus precious photos and memories locked forever.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Build Your Legacy →</button>
+                </div>
+            </div>
+            
+            <!-- Step 5: Legacy Introduction -->
+            <div class="step" id="step5">
+                <div class="welcome-icon">🕊️</div>
+                <div class="welcome-text">
+                    <h2>Now Let's Preserve Your Legacy</h2>
+                    <p>Beyond saving money, ensure your memories, achievements, and final messages live on forever. Create a beautiful digital memorial that celebrates your life.</p>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Create Memorial →</button>
+                </div>
+            </div>
+            
+            <!-- Step 6: Memorial Template -->
+            <div class="step" id="step6">
+                <h2>Choose Your Memorial Style</h2>
+                <p>Select a template that reflects your personality</p>
+                
+                <div class="template-grid">
+                    <div class="template-card selected" onclick="selectTemplate(this, 'classic')">
+                        <div class="template-icon">🏛️</div>
+                        <h4>Classic</h4>
+                        <p>Timeless & Elegant</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'modern')">
+                        <div class="template-icon">✨</div>
+                        <h4>Modern</h4>
+                        <p>Clean & Contemporary</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'nature')">
+                        <div class="template-icon">🌿</div>
+                        <h4>Nature</h4>
+                        <p>Peaceful & Organic</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'minimal')">
+                        <div class="template-icon">⚪</div>
+                        <h4>Minimal</h4>
+                        <p>Simple & Pure</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Select Photos →</button>
+                </div>
+            </div>
+            
+            <!-- Step 7: Photo Selection -->
+            <div class="step" id="step7">
+                <h2>Select Memorial Photos</h2>
+                <p>Choose photos that tell your story</p>
+                
+                <div class="photo-grid">
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        📸<br>Wedding Day
+                    </div>
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        🏖️<br>Family Vacation
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        🎓<br>Graduation
+                    </div>
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        👶<br>Kids' Birth
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        🏔️<br>Adventures
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        🎄<br>Holidays
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        🏆<br>Achievements
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        👥<br>Friends
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        🏠<br>Home
+                    </div>
+                </div>
+                
+                <button class="add-btn" style="margin-top: 1rem;">+ Upload Custom Photos</button>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Add Achievements →</button>
+                </div>
+            </div>
+            
+            <!-- Step 8: Life Achievements -->
+            <div class="step" id="step8">
+                <h2>Your Life Story</h2>
+                <p>Share your proudest moments and passions</p>
+                
+                <div class="achievement-list">
+                    <div class="achievement-category">
+                        <h4>🎓 Education & Career</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="MBA from Harvard Business School" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Founded two successful startups" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" placeholder="Add achievement..." />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-category">
+                        <h4>🎨 Hobbies & Passions</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Climbed 14 mountain peaks" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Jazz pianist for 20 years" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" placeholder="Add hobby..." />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-category">
+                        <h4>👨‍👩‍👧‍👦 Family & Community</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Married 25 wonderful years" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Coached little league for 10 years" />
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" placeholder="Add memory..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Write Final Message →</button>
+                </div>
+            </div>
+            
+            <!-- Step 9: Final Message -->
+            <div class="step" id="step9">
+                <h2>Your Final Message</h2>
+                <p>What do you want people to remember?</p>
+                
+                <div class="message-composer">
+                    <label>Choose your tone:</label>
+                    <div class="tone-selector">
+                        <button class="tone-btn selected" onclick="selectTone(this, 'warm')">Warm & Loving</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'inspirational')">Inspirational</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'humorous')">Light & Humorous</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'formal')">Formal</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Your Message</label>
+                    <textarea id="finalMessage" rows="6" placeholder="Write your message here...">To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments. Remember me not with sadness, but with the joy we shared. Take care of each other, chase your dreams, and never forget to tell the people you love how much they mean to you. Until we meet again...</textarea>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                    <button class="add-btn">🎤 Record Audio Message</button>
+                    <button class="add-btn">🎥 Record Video Message</button>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Preview Memorial →</button>
+                </div>
+            </div>
+            
+            <!-- Step 10: Memorial Preview -->
+            <div class="step" id="step10">
+                <h2 style="text-align: center;">Your Digital Memorial Preview</h2>
+                
+                <div class="memorial-preview">
+                    <div class="memorial-header">
+                        <div class="memorial-photo">👤</div>
+                        <h2 class="memorial-name"><span id="memorialName">John Doe</span></h2>
+                        <p class="memorial-dates">1968 - 2024</p>
+                        <p class="memorial-quote">"<span id="memorialMotto">Living one adventure at a time</span>"</p>
+                    </div>
+                    
+                    <div class="memorial-nav">
+                        <span class="memorial-nav-item active" onclick="showMemorialSection('photos')">Photos</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('story')">Life Story</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('message')">Message</span>
+                    </div>
+                    
+                    <div class="memorial-content">
+                        <div class="memorial-section active" id="memorial-photos">
+                            <h3>Photo Memories</h3>
+                            <div class="memorial-photos">
+                                <div class="memorial-photo-item">📸 Wedding</div>
+                                <div class="memorial-photo-item">🏖️ Vacation</div>
+                                <div class="memorial-photo-item">👶 Family</div>
+                                <div class="memorial-photo-item">🏔️ Adventures</div>
+                            </div>
+                        </div>
+                        
+                        <div class="memorial-section" id="memorial-story">
+                            <h3>Life Achievements</h3>
+                            <div class="memorial-achievements">
+                                <div class="memorial-achievement-group">
+                                    <h4>🎓 Education & Career</h4>
+                                    <ul>
+                                        <li>MBA from Harvard Business School</li>
+                                        <li>Founded two successful startups</li>
+                                    </ul>
+                                </div>
+                                <div class="memorial-achievement-group">
+                                    <h4>🎨 Passions</h4>
+                                    <ul>
+                                        <li>Climbed 14 mountain peaks</li>
+                                        <li>Jazz pianist for 20 years</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="memorial-section" id="memorial-message">
+                            <h3>Final Message</h3>
+                            <div class="memorial-message">
+                                <span id="memorialMessageText">To everyone who visits this memorial, thank you for being part of my journey...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="memorial-actions">
+                        <button class="memorial-btn" style="background: #1DB5B5; color: white;">🔗 Share Memorial</button>
+                        <button class="memorial-btn" style="background: #F7FAFC; color: #4A6B70;">💐 Leave Memory</button>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 1rem; color: #4A6B70;">
+                    Memorial URL: <strong>echoexit.com/<span id="memorialUrl">john-doe</span></strong>
+                </p>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Additional Features →</button>
+                </div>
+            </div>
+            
+            <!-- Step 11: Additional Features -->
+            <div class="step" id="step11">
+                <h2>Additional Legacy Features</h2>
+                <p>Customize how your legacy lives on</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>📅 Scheduled Messages</h4>
+                        <p>Send birthday wishes, anniversary messages, and milestone congratulations for years to come</p>
+                        <button class="add-btn">Schedule Messages</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🎁 Digital Asset Transfer</h4>
+                        <p>Automatically transfer photos, documents, and digital assets to designated beneficiaries</p>
+                        <button class="add-btn">Set Beneficiaries</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>💝 Charity Donations</h4>
+                        <p>Set up automatic donations to your favorite charities in your memory</p>
+                        <button class="add-btn">Choose Charities</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📖 Life Story Book</h4>
+                        <p>Create a printed book of your life story and memories for family</p>
+                        <button class="add-btn">Design Book</button>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Final Summary →</button>
+                </div>
+            </div>
+            
+            <!-- Step 12: Complete Summary -->
+            <div class="step" id="step12">
+                <h2 style="text-align: center;">
+                    <span id="summaryName">John</span>, Your Digital Legacy is Ready!
+                </h2>
+                
+                <div class="final-summary">
+                    <h3 style="text-align: center; color: #1DB5B5; margin-bottom: 1.5rem;">
+                        Complete Protection + Beautiful Memorial
+                    </h3>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-section">
+                            <h3>💰 Financial Protection</h3>
+                            <ul class="summary-list">
+                                <li>Save family $<span id="summaryYearly">491.64</span>/year</li>
+                                <li><span id="summaryAccounts">3</span> subscriptions auto-canceled</li>
+                                <li>47 hours of work prevented</li>
+                                <li>Zero hassle for loved ones</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-section">
+                            <h3>🕊️ Digital Memorial</h3>
+                            <ul class="summary-list">
+                                <li>Beautiful memorial website</li>
+                                <li>Photo galleries preserved</li>
+                                <li>Life achievements documented</li>
+                                <li>Final messages delivered</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <p style="font-size: 1.2rem; color: #1A2B2E; font-weight: 600;">
+                            Total Value: Priceless Peace of Mind
+                        </p>
+                        <p style="color: #4A6B70; margin-top: 0.5rem;">
+                            Your family protected, your memories preserved forever
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Your Personalized Plan</h3>
+                    <div class="pricing-comparison">
+                        <div>
+                            <p class="price-label">Regular Price</p>
+                            <p class="price-old">$19.99/month</p>
+                        </div>
+                        <div>
+                            <p class="price-label special">Beta Special</p>
+                            <p class="price-new">$9.99/month</p>
+                        </div>
+                    </div>
+                    <p class="discount-badge">
+                        🎉 50% OFF for Beta Users - Lifetime Discount!
+                    </p>
+                </div>
+                
+                <button class="btn btn-cta" onclick="signUp()">
+                    Start Protecting Your Legacy Now →
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; color: #4A6B70;">
+                    Cancel anytime • 30-day money-back guarantee • Bank-level security
+                </p>
+                
+                <div class="navigation" style="margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="restartDemo()">Start Over</button>
+                    <button class="btn btn-primary" onclick="goToMainSite()">Back to Main Site</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 12;
+        let userData = {
+            name: 'John',
+            spouse: 'Sarah',
+            motto: 'Living one adventure at a time',
+            monthlyTotal: 40.97,
+            subscriptions: ['Netflix', 'Spotify', 'Amazon Prime'],
+            template: 'classic',
+            photos: ['Wedding Day', 'Family Vacation', "Kids' Birth"],
+            achievements: {
+                education: ['MBA from Harvard Business School', 'Founded two successful startups'],
+                hobbies: ['Climbed 14 mountain peaks', 'Jazz pianist for 20 years'],
+                family: ['Married 25 wonderful years', 'Coached little league for 10 years']
+            },
+            message: '',
+            tone: 'warm'
+        };
+        
+        // Initialize demo when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateTotal();
+            updateProgress();
+            
+            // Prevent form submission on Enter key (except in textarea)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    nextStep();
+                }
+            });
+        });
+        
+        // Progress and navigation functions
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+            
+            // Update step dots
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                if (index < currentStep) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            // Update header title based on section
+            const mainTitle = document.getElementById('mainTitle');
+            if (mainTitle) {
+                if (currentStep <= 4) {
+                    mainTitle.textContent = 'Your Digital Death Calculator';
+                } else if (currentStep <= 11) {
+                    mainTitle.textContent = 'Your Digital Memorial Builder';
+                } else {
+                    mainTitle.textContent = 'Your Complete Digital Legacy';
+                }
+            }
+        }
+        
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Save data from current step
+                saveCurrentStepData();
+                
+                // Hide current step
+                const currentStepElement = document.getElementById('step' + currentStep);
+                if (currentStepElement) {
+                    currentStepElement.classList.remove('active');
+                }
+                
+                // Show next step
+                currentStep++;
+                const nextStepElement = document.getElementById('step' + currentStep);
+                if (nextStepElement) {
+                    nextStepElement.classList.add('active');
+                }
+                
+                // Update displays for specific steps
+                updateStepSpecificContent();
+                
+                updateProgress();
+                
+                // Scroll to top of demo
+                scrollToTop();
+            }
+        }
+        
+        function previousStep() {
+            if (currentStep > 1) {
+                const currentStepElement = document.getElementById('step' + currentStep);
+                if (currentStepElement) {
+                    currentStepElement.classList.remove('active');
+                }
+                
+                currentStep--;
+                const prevStepElement = document.getElementById('step' + currentStep);
+                if (prevStepElement) {
+                    prevStepElement.classList.add('active');
+                }
+                
+                updateProgress();
+                scrollToTop();
+            }
+        }
+        
+        function saveCurrentStepData() {
+            if (currentStep === 2) {
+                const userNameInput = document.getElementById('userName');
+                const spouseNameInput = document.getElementById('spouseName');
+                const lifeMottoInput = document.getElementById('lifeMotto');
+                
+                userData.name = userNameInput ? userNameInput.value || 'Friend' : 'Friend';
+                userData.spouse = spouseNameInput ? spouseNameInput.value || 'Your loved one' : 'Your loved one';
+                userData.motto = lifeMottoInput ? lifeMottoInput.value || 'A life well lived' : 'A life well lived';
+            } else if (currentStep === 9) {
+                const finalMessageInput = document.getElementById('finalMessage');
+                userData.message = finalMessageInput ? finalMessageInput.value : '';
+            }
+        }
+        
+        function updateStepSpecificContent() {
+            if (currentStep === 4) {
+                updateImpactDisplay();
+            } else if (currentStep === 10) {
+                updateMemorialPreview();
+            } else if (currentStep === 12) {
+                updateFinalSummary();
+            }
+        }
+        
+        function scrollToTop() {
+            const demoContainer = document.querySelector('.demo-container');
+            if (demoContainer) {
+                demoContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Subscription management functions
+        function toggleSubscription(element, name, price) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            if (!checkbox) return;
+            
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('selected');
+                if (!userData.subscriptions.includes(name)) {
+                    userData.subscriptions.push(name);
+                }
+            } else {
+                element.classList.remove('selected');
+                userData.subscriptions = userData.subscriptions.filter(s => s !== name);
+            }
+            
+            calculateTotal();
+        }
+        
+        function calculateTotal() {
+            let total = 0;
+            const checkedBoxes = document.querySelectorAll('.subscription-item input:checked');
+            
+            checkedBoxes.forEach(checkbox => {
+                const priceElement = checkbox.parentElement.querySelector('.subscription-price');
+                if (priceElement) {
+                    const priceText = priceElement.textContent;
+                    const price = parseFloat(priceText.replace('$', '').replace('/mo', ''));
+                    if (!isNaN(price)) {
+                        total += price;
+                    }
+                }
+            });
+            
+            userData.monthlyTotal = total;
+            
+            // Update display elements
+            const monthlyTotalElement = document.getElementById('monthlyTotal');
+            const yearlyTotalElement = document.getElementById('yearlyTotal');
+            
+            if (monthlyTotalElement) {
+                monthlyTotalElement.textContent = total.toFixed(2);
+            }
+            if (yearlyTotalElement) {
+                yearlyTotalElement.textContent = (total * 12).toFixed(2);
+            }
+        }
+        
+        // Impact display functions
+        function updateImpactDisplay() {
+            const monthly = userData.monthlyTotal;
+            const yearly = monthly * 12;
+            
+            const monthlyImpactElement = document.getElementById('monthlyImpact');
+            const yearlyImpactElement = document.getElementById('yearlyImpact');
+            const spouseDisplayElement = document.getElementById('spouseDisplay');
+            
+            if (monthlyImpactElement) {
+                monthlyImpactElement.textContent = monthly.toFixed(2);
+            }
+            if (yearlyImpactElement) {
+                yearlyImpactElement.textContent = yearly.toFixed(2);
+            }
+            if (spouseDisplayElement) {
+                spouseDisplayElement.textContent = userData.spouse;
+            }
+        }
+        
+        // Template selection functions
+        function selectTemplate(element, template) {
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            userData.template = template;
+        }
+        
+        // Photo selection functions
+        function togglePhoto(element) {
+            element.classList.toggle('selected');
+            const photoName = element.textContent.trim();
+            
+            if (element.classList.contains('selected')) {
+                if (!userData.photos.includes(photoName)) {
+                    userData.photos.push(photoName);
+                }
+            } else {
+                userData.photos = userData.photos.filter(p => p !== photoName);
+            }
+        }
+        
+        // Tone selection functions
+        function selectTone(element, tone) {
+            document.querySelectorAll('.tone-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            userData.tone = tone;
+        }
+        
+        // Memorial preview functions
+        function showMemorialSection(section) {
+            document.querySelectorAll('.memorial-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.querySelectorAll('.memorial-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const sectionElement = document.getElementById('memorial-' + section);
+            if (sectionElement) {
+                sectionElement.classList.add('active');
+            }
+            
+            // Add active class to clicked nav item
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+        
+        function updateMemorialPreview() {
+            const memorialNameElement = document.getElementById('memorialName');
+            const memorialMottoElement = document.getElementById('memorialMotto');
+            const memorialUrlElement = document.getElementById('memorialUrl');
+            const memorialMessageTextElement = document.getElementById('memorialMessageText');
+            
+            if (memorialNameElement) {
+                memorialNameElement.textContent = userData.name + ' Doe';
+            }
+            if (memorialMottoElement) {
+                memorialMottoElement.textContent = userData.motto;
+            }
+            if (memorialUrlElement) {
+                memorialUrlElement.textContent = userData.name.toLowerCase() + '-doe';
+            }
+            if (memorialMessageTextElement) {
+                memorialMessageTextElement.textContent = userData.message || 'To everyone who visits this memorial...';
+            }
+        }
+        
+        // Final summary functions
+        function updateFinalSummary() {
+            const yearly = userData.monthlyTotal * 12;
+            
+            const summaryNameElement = document.getElementById('summaryName');
+            const summaryYearlyElement = document.getElementById('summaryYearly');
+            const summaryAccountsElement = document.getElementById('summaryAccounts');
+            
+            if (summaryNameElement) {
+                summaryNameElement.textContent = userData.name;
+            }
+            if (summaryYearlyElement) {
+                summaryYearlyElement.textContent = yearly.toFixed(2);
+            }
+            if (summaryAccountsElement) {
+                summaryAccountsElement.textContent = userData.subscriptions.length;
+            }
+        }
+        
+        // Action functions
+        function signUp() {
+            alert(userData.name + '! Your digital legacy is secured. Redirecting to secure checkout...');
+            // In production, this would redirect to actual signup
+            // window.location.href = '/signup';
+        }
+        
+        function restartDemo() {
+            currentStep = 1;
+            
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            
+            // Show first step
+            const firstStep = document.getElementById('step1');
+            if (firstStep) {
+                firstStep.classList.add('active');
+            }
+            
+            updateProgress();
+            
+            // Reset form values
+            const userNameInput = document.getElementById('userName');
+            const spouseNameInput = document.getElementById('spouseName');
+            const lifeMottoInput = document.getElementById('lifeMotto');
+            
+            if (userNameInput) userNameInput.value = 'John';
+            if (spouseNameInput) spouseNameInput.value = 'Sarah';
+            if (lifeMottoInput) lifeMottoInput.value = 'Living one adventure at a time';
+            
+            // Reset subscriptions
+            document.querySelectorAll('.subscription-item').forEach(item => {
+                const checkbox = item.querySelector('input');
+                const nameElement = item.querySelector('.subscription-name');
+                
+                if (checkbox && nameElement) {
+                    const name = nameElement.textContent;
+                    if (['Netflix', 'Spotify', 'Amazon Prime'].includes(name)) {
+                        checkbox.checked = true;
+                        item.classList.add('selected');
+                    } else {
+                        checkbox.checked = false;
+                        item.classList.remove('selected');
+                    }
+                }
+            });
+            
+            // Reset template selection
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            const firstTemplate = document.querySelector('.template-card');
+            if (firstTemplate) {
+                firstTemplate.classList.add('selected');
+            }
+            
+            // Reset photo selection
+            document.querySelectorAll('.photo-item').forEach(item => {
+                const photoText = item.textContent.trim();
+                if (photoText.includes('Wedding Day') || photoText.includes('Family Vacation') || photoText.includes('Kids\' Birth')) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            
+            // Reset tone selection
+            document.querySelectorAll('.tone-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const firstTone = document.querySelector('.tone-btn');
+            if (firstTone) {
+                firstTone.classList.add('selected');
+            }
+            
+            // Reset user data
+            userData = {
+                name: 'John',
+                spouse: 'Sarah',
+                motto: 'Living one adventure at a time',
+                monthlyTotal: 40.97,
+                subscriptions: ['Netflix', 'Spotify', 'Amazon Prime'],
+                template: 'classic',
+                photos: ['Wedding Day', 'Family Vacation', "Kids' Birth"],
+                achievements: {
+                    education: ['MBA from Harvard Business School', 'Founded two successful startups'],
+                    hobbies: ['Climbed 14 mountain peaks', 'Jazz pianist for 20 years'],
+                    family: ['Married 25 wonderful years', 'Coached little league for 10 years']
+                },
+                message: '',
+                tone: 'warm'
+            };
+            
+            calculateTotal();
+            scrollToTop();
+        }
+        
+        function goToMainSite() {
+            // In production, this would go to the main site
+            window.location.href = 'index.html';
+        }

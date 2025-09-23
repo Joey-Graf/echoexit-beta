@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoExit - Your Digital Legacy, Executed with Care</title>
+    <meta name="description" content="Automatically cancel subscriptions, deliver farewell messages, and protect your digital legacy when you're gone.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1DB5B5 !important;
+            --primary-dark: #17999B !important;
+            --accent: #FDB462;
+            --text: #1A2B2E;
+            --text-light: #4A6B70;
+            --bg: #FFFFFF;
+            --bg-light: #F0F7F7;
+            --border: #D1E5E5;
+            --success: #48BB78;
+            --dark-bg: #0F1F21;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1DB5B5;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #1DB5B5;
+        }
+        
+        .nav-cta {
+            background: #1DB5B5 !important;
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-cta:hover {
+            background: #17999B !important;
+            transform: translateY(-1px);
+        }
+        
+        /* Hero Section - TEAL VERSION */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #0F1F21 0%, #1A2B2E 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #1DB5B5;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #B8D4D4;
+            margin-bottom: 2.5rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1DB5B5;
+        }
+        
+        .stat-label {
+            color: #B8D4D4;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #1DB5B5 !important;
+            color: white !important;
+        }
+        
+        .btn-primary:hover {
+            background: #17999B !important;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #1DB5B5 !important;
+            border: 2px solid #1DB5B5 !important;
+        }
+        
+        .btn-secondary:hover {
+            background: #1DB5B5 !important;
+            color: white !important;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        /* Demo Section Enhancement */
+        .demo-preview {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #F0F7F7;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .demo-preview::before {
+            content: "🎯 INTERACTIVE DEMO";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1DB5B5;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .demo-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .demo-step {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-step:hover {
+            border-color: #1DB5B5;
+            transform: translateY(-2px);
+        }
+        
+        .demo-step-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-step h4 {
+            color: #1A2B2E;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-step p {
+            color: #4A6B70;
+            font-size: 0.9rem;
+        }
+        
+        .demo-cta {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .demo-cta .btn {
+            margin: 0.5rem 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background: #0F1F21;
+            color: white;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(29, 181, 181, 0.2);
+            border: 1px solid #1DB5B5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1DB5B5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #1DB5B5;
+            color: white;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .demo-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+    // Improved staging password protection
+    (function() {
+        const STAGING_PASSWORD = 'EchoExit2025';
+        const AUTH_KEY = 'echoexit_staging_auth';
+        const AUTH_EXPIRY_KEY = 'echoexit_staging_expiry';
+        
+        // Check if already authenticated and not expired
+        const isAuthenticated = sessionStorage.getItem(AUTH_KEY);
+        const authExpiry = sessionStorage.getItem(AUTH_EXPIRY_KEY);
+        const now = new Date().getTime();
+        
+        if (!isAuthenticated || !authExpiry || now > parseInt(authExpiry)) {
+            // Clear expired auth
+            sessionStorage.removeItem(AUTH_KEY);
+            sessionStorage.removeItem(AUTH_EXPIRY_KEY);
+            
+            // Show professional login screen
+            document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>EchoExit Staging Access</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+                </head>
+                <body style="
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #0F1F21 0%, #1A2B2E 100%);
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                    margin: 0;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 2.5rem;
+                        border-radius: 16px;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                        max-width: 400px;
+                        width: 90%;
+                        text-align: center;
+                    ">
+                        <h1 style="
+                            color: #1DB5B5;
+                            margin-bottom: 0.5rem;
+                            font-size: 1.8rem;
+                            font-family: 'Crimson Text', serif;
+                        ">EchoExit</h1>
+                        <p style="
+                            color: #4A6B70;
+                            margin-bottom: 2rem;
+                            font-size: 0.95rem;
+                        ">Private Staging Environment</p>
+                        
+                        <input type="password" 
+                               id="staging-password" 
+                               placeholder="Enter staging password"
+                               style="
+                                   width: 100%;
+                                   padding: 0.875rem;
+                                   border: 2px solid #D1E5E5;
+                                   border-radius: 8px;
+                                   font-size: 1rem;
+                                   margin-bottom: 1rem;
+                                   box-sizing: border-box;
+                                   font-family: 'Inter', sans-serif;
+                               "
+                               onkeypress="if(event.key === 'Enter') document.getElementById('auth-btn').click()">
+                        
+                        <button id="auth-btn" onclick="
+                            const pwd = document.getElementById('staging-password').value;
+                            if (pwd === '${STAGING_PASSWORD}') {
+                                sessionStorage.setItem('${AUTH_KEY}', 'true');
+                                sessionStorage.setItem('${AUTH_EXPIRY_KEY}', '${now + 86400000}');
+                                location.reload();
+                            } else {
+                                document.getElementById('error-msg').textContent = 'Incorrect password';
+                                document.getElementById('staging-password').value = '';
+                                document.getElementById('staging-password').style.borderColor = '#E53E3E';
+                                setTimeout(() => {
+                                    document.getElementById('staging-password').style.borderColor = '#D1E5E5';
+                                }, 2000);
+                            }
+                        " style="
+                            width: 100%;
+                            padding: 0.875rem;
+                            background: #1DB5B5;
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            font-family: 'Inter', sans-serif;
+                        ">
+                            Access Staging Site
+                        </button>
+                        
+                        <p id="error-msg" style="
+                            color: #E53E3E;
+                            margin-top: 1rem;
+                            font-size: 0.875rem;
+                            min-height: 20px;
+                        "></p>
+                        
+                        <p style="
+                            color: #718096;
+                            margin-top: 1.5rem;
+                            font-size: 0.8rem;
+                        ">Contact echoexitadm@gmail.com for access</p>
+                    </div>
+                </body>
+                </html>
+            `);
+            document.close();
+            throw new Error('Authentication required');
+        }
+    })();
+    </script>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">EchoExit</a>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how">How It Works</a>
+                    <a href="demo.html">Demo</a>
+                    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with TEAL colors -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Digital Legacy, Executed with Care</h1>
+                <p class="hero-subtitle">Your family shouldn't pay for your Netflix forever. Prepare your digital estate today.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">150,000</div>
+                        <div class="stat-label">People die globally each day</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">130+</div>
+                        <div class="stat-label">Average online accounts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">$240/mo</div>
+                        <div class="stat-label">Uncanceled subscriptions</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <a href="#waitlist" class="btn btn-primary">Secure Your Spot</a>
+                    <a href="demo.html" class="btn btn-secondary">Try Interactive Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Bar -->
+    <section style="padding: 30px 0; background: white; border-bottom: 1px solid #D1E5E5;">
+        <div class="container">
+            <div style="text-align: center;">
+                <span style="color: #1A2B2E; font-weight: 600; margin-right: 1rem;">Connect With Us:</span>
+                <a href="https://x.com/EchoExitAI" target="_blank" style="display: inline-block; margin: 0 0.5rem; padding: 0.5rem 1rem; background: #F0F7F7; border-radius: 25px; text-decoration: none; color: #1A2B2E;">
+                    𝕏 @EchoExitAI
+                </a>
+                <a href="https://www.instagram.com/exchoexitai/" target="_blank" style="display: inline-block; margin: 0 0.5rem; padding: 0.5rem 1rem; background: #F0F7F7; border-radius: 25px; text-decoration: none; color: #1A2B2E;">
+                    📷 @exchoexitai
+                </a>
+                <a href="https://www.linkedin.com/in/echo-exit-85069b382/" target="_blank" style="display: inline-block; margin: 0 0.5rem; padding: 0.5rem 1rem; background: #F0F7F7; border-radius: 25px; text-decoration: none; color: #1A2B2E;">
+                    💼 LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section" style="background: #F0F7F7;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Digital Legacy Protection</h2>
+                <p style="color: #4A6B70;">Everything your family needs, handled automatically</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🚫</div>
+                    <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Auto-Cancel Subscriptions</h3>
+                    <p style="color: #4A6B70;">Save your family $240+/month</p>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">💌</div>
+                    <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Farewell Messages</h3>
+                    <p style="color: #4A6B70;">AI-enhanced personal goodbyes</p>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                    <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Bank-Level Security</h3>
+                    <p style="color: #4A6B70;">Zero-knowledge encryption</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Demo Section -->
+    <section id="demo" class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experience Your Digital Legacy</h2>
+                <p style="color: #4A6B70;">See exactly how EchoExit saves money AND preserves memories</p>
+            </div>
+            
+            <div class="demo-preview">
+                <h3 style="text-align: center; color: #1A2B2E; margin-bottom: 2rem;">12-Step Interactive Journey</h3>
+                
+                <div class="demo-steps">
+                    <div class="demo-step">
+                        <div class="demo-step-icon">🔍</div>
+                        <h4>Calculate Costs</h4>
+                        <p>See what happens to your 130+ accounts</p>
+                    </div>
+                    
+                    <div class="demo-step">
+                        <div class="demo-step-icon">💰</div>
+                        <h4>Financial Impact</h4>
+                        <p>Discover how much your family could save</p>
+                    </div>
+                    
+                    <div class="demo-step">
+                        <div class="demo-step-icon">🕊️</div>
+                        <h4>Build Memorial</h4>
+                        <p>Create a beautiful digital legacy</p>
+                    </div>
+                    
+                    <div class="demo-step">
+                        <div class="demo-step-icon">💌</div>
+                        <h4>Final Messages</h4>
+                        <p>Write your farewell words</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #1DB5B5, #17999B); color: white; border-radius: 16px; margin: 2rem 0;">
+                    <h4 style="font-size: 1.8rem; margin-bottom: 1rem;">Complete Value Proposition</h4>
+                    <p style="opacity: 0.9;">Financial Protection + Memory Preservation + Peace of Mind</p>
+                </div>
+                
+                <div class="demo-cta">
+                    <a href="demo.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+                        Try Full Interactive Demo →
+                    </a>
+                    <p style="color: #4A6B70; margin-top: 1rem; font-size: 0.9rem;">
+                        Takes 5 minutes • Fully personalized • No signup required
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section with Email Collection -->
+    <section id="waitlist" class="section" style="background: linear-gradient(135deg, #1DB5B5, #17999B); color: white;">
+        <div class="container">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Join the Beta</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get 50% off for life as a founding member</p>
+                
+                <form id="waitlistForm" style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+                    <input type="email" 
+                           id="waitlistEmail"
+                           placeholder="Enter your email" 
+                           required 
+                           style="flex: 1; min-width: 250px; padding: 1rem; border: none; border-radius: 30px; font-size: 1rem;">
+                    <button type="submit" 
+                            id="waitlistButton"
+                            style="background: #FDB462; color: #1A2B2E; padding: 1rem 2rem; border: none; border-radius: 30px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s;">
+                        Join Waitlist
+                    </button>
+                </form>
+                
+                <p id="waitlistMessage" style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem; min-height: 20px;">
+                    ✨ First 100 users get 50% off for life
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>EchoExit</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Your digital legacy, executed with care.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/EchoExitAI" target="_blank">𝕏</a>
+                        <a href="https://www.instagram.com/exchoexitai/" target="_blank">📷</a>
+                        <a href="https://www.linkedin.com/in/echo-exit-85069b382/" target="_blank">in</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Contact</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">
+                        Email: <a href="mailto:echoexitadm@gmail.com" style="color: #1DB5B5;">echoexitadm@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="opacity: 0.6;">&copy; 2025 EchoExit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Email Collection Script -->
+    <script>
+        // Google Apps Script URL for handling waitlist signups
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYvaB3vC8qrvy9ow-l_5Hiqi1DSoIOdPDURoPCvGkYPxIiE0dSkoEHD8JABj83X8g8EQ/exec';
+
+        document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('waitlistEmail').value;
+            const button = document.getElementById('waitlistButton');
+            const message = document.getElementById('waitlistMessage');
+            const emailInput = document.getElementById('waitlistEmail');
+            
+            // Update UI to show loading
+            button.disabled = true;
+            button.textContent = 'Joining...';
+            button.style.opacity = '0.7';
+            
+            try {
+                // Send to Google Apps Script
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'website_waitlist'
+                    })
+                });
+                
+                // Show success (we assume success since no-cors doesn't return response)
+                button.textContent = '✓ Success!';
+                button.style.background = '#48BB78';
+                emailInput.value = '';
+                message.innerHTML = '🎉 <strong>Check your email!</strong> Welcome message sent to ' + email;
+                message.style.color = '#48BB78';
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.textContent = 'Join Waitlist';
+                    button.style.background = '#FDB462';
+                    button.style.opacity = '1';
+                    message.innerHTML = '✨ First 100 users get 50% off for life';
+                    message.style.color = 'white';
+                }, 5000);
+                
+            } catch (error) {
+                // Handle error
+                button.textContent = 'Try Again';
+                button.disabled = false;
+                button.style.opacity = '1';
+                message.innerHTML = '❌ Something went wrong. Please try again or email us directly.';
+                message.style.color = '#FCA5A5';
+            }
+        });
+    </script>
+</body>
+</html>
