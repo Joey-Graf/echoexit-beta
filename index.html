@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoExit - Your Digital Legacy, Executed with Care</title>
-    <meta name="description" content="Automatically cancel subscriptions, deliver farewell messages, and protect your digital legacy when you're gone.">
+    <meta name="description" content="Plan your digital closure with dignity. EchoExit manages your online accounts, delivers farewell messages, and protects your digital legacy when you're gone.">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
@@ -63,6 +63,15 @@
             max-width: 400px;
             width: 90%;
             text-align: center;
+        }
+        
+        .password-box .logo-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .password-box .logo-container img {
+            width: 120px;
+            height: auto;
         }
         
         .password-box h1 {
@@ -151,11 +160,21 @@
         }
         
         .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
             font-family: 'Crimson Text', serif;
             font-size: 1.8rem;
             font-weight: 700;
             color: #1DB5B5;
-            text-decoration: none;
         }
         
         .nav-links {
@@ -198,6 +217,22 @@
             overflow: hidden;
         }
         
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(29, 181, 181, 0.1), transparent);
+            top: -250px;
+            right: -250px;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 50px) scale(1.1); }
+        }
+        
         .hero-content {
             position: relative;
             z-index: 1;
@@ -213,10 +248,20 @@
             font-family: 'Crimson Text', serif;
         }
         
+        .tagline {
+            font-size: 1.8rem;
+            color: #FDB462;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
         .hero-subtitle {
             font-size: 1.3rem;
             color: #B8D4D4;
             margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .hero-stats {
@@ -276,6 +321,150 @@
             color: white;
         }
         
+        /* Problem Section */
+        .problem-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .problem-card {
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .problem-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .problem-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        .problem-stats {
+            background: var(--text);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Vision Section */
+        .vision-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .vision-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .vision-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .vision-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        /* How It Works */
+        .how-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .process-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 16px;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
         /* Sections */
         .section {
             padding: 80px 0;
@@ -294,66 +483,64 @@
             font-family: 'Crimson Text', serif;
         }
         
-        /* Demo Preview */
-        .demo-preview {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: #F0F7F7;
-            border-radius: 20px;
-            position: relative;
-        }
-        
-        .demo-preview::before {
-            content: "🎯 INTERACTIVE DEMO";
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1DB5B5;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .demo-steps {
+        /* Features Section */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
         
-        .demo-step {
+        .feature-card {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
             background: white;
-            border-radius: 12px;
-            border: 2px solid transparent;
+            border-radius: 16px;
+            border: 2px solid var(--border);
             transition: all 0.3s ease;
         }
         
-        .demo-step:hover {
-            border-color: #1DB5B5;
-            transform: translateY(-2px);
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(29, 181, 181, 0.1);
         }
         
-        .demo-step-icon {
-            font-size: 2rem;
+        .feature-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
         
-        .demo-step h4 {
-            color: #1A2B2E;
-            margin-bottom: 0.5rem;
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
         }
         
-        .demo-step p {
-            color: #4A6B70;
-            font-size: 0.9rem;
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
         }
         
+        .cta-section .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .beta-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        /* Social Bar */
         .social-bar {
             padding: 30px 0;
             background: white;
@@ -391,6 +578,23 @@
             margin-bottom: 3rem;
         }
         
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+        
         .social-links {
             display: flex;
             gap: 1rem;
@@ -422,6 +626,10 @@
                 font-size: 2.5rem;
             }
             
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
             .hero-stats {
                 gap: 2rem;
             }
@@ -431,8 +639,20 @@
                 font-size: 0.9rem;
             }
             
-            .demo-steps {
+            .problem-grid,
+            .vision-features,
+            .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .process-step,
+            .process-step:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                position: relative;
+                margin: 1rem auto;
             }
         }
     </style>
@@ -441,6 +661,9 @@
     <!-- Password Protection Overlay -->
     <div id="password-overlay">
         <div class="password-box">
+            <div class="logo-container">
+                <img src="images/echoexit-logo.png" alt="EchoExit Logo" onerror="this.style.display='none'">
+            </div>
             <h1>EchoExit</h1>
             <p>Private Staging Environment</p>
             <input type="password" id="staging-password" placeholder="Enter staging password" onkeypress="if(event.key === 'Enter') checkPassword()">
@@ -456,12 +679,17 @@
         <nav>
             <div class="container">
                 <div class="nav-container">
-                    <a href="#" class="logo">EchoExit</a>
+                    <a href="#" class="logo">
+                        <img src="images/echoexit-logo.png" alt="EchoExit" onerror="this.style.display='none'">
+                        <span class="logo-text">EchoExit</span>
+                    </a>
                     <div class="nav-links">
-                        <a href="#features">Features</a>
+                        <a href="#problem">Problem</a>
+                        <a href="#vision">Solution</a>
                         <a href="#how">How It Works</a>
                         <a href="demo.html">Demo</a>
-                        <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+                        <a href="roadmap.html">Roadmap</a>
+                        <a href="#waitlist" class="nav-cta">Join Beta</a>
                     </div>
                 </div>
             </div>
@@ -472,7 +700,12 @@
             <div class="container">
                 <div class="hero-content">
                     <h1>Your Digital Legacy, Executed with Care</h1>
-                    <p class="hero-subtitle">Your family shouldn't pay for your Netflix forever. Prepare your digital estate today.</p>
+                    <p class="tagline">"Because Your Legacy Should Echo — Not Linger."</p>
+                    <p class="hero-subtitle">
+                        In today's hyper-digital world, we leave behind more than memories. 
+                        EchoExit is your pre-authorized digital assistant that manages your digital closure with dignity, 
+                        protecting your family from financial burden and emotional distress.
+                    </p>
                     
                     <div class="hero-stats">
                         <div class="stat">
@@ -490,9 +723,263 @@
                     </div>
                     
                     <div>
-                        <a href="#waitlist" class="btn btn-primary">Secure Your Spot</a>
+                        <a href="#waitlist" class="btn btn-primary">Join Beta Program</a>
                         <a href="demo.html" class="btn btn-secondary">Try Interactive Demo</a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem" class="problem-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>The Problem Worth Solving</h2>
+                    <p style="color: #4A6B70; font-size: 1.2rem;">
+                        Death is certain — but digital clutter is optional.
+                    </p>
+                </div>
+                
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <div class="problem-icon">💔</div>
+                        <h3>Emotional Burden</h3>
+                        <p>
+                            Families encounter ghost profiles and memory triggers years after passing. 
+                            Without a plan, loved ones must guess passwords, navigate unclear platform policies, 
+                            and face unexpected reminders of their loss.
+                        </p>
+                        <div class="problem-stats">
+                            87% of families struggle with deceased's digital accounts
+                        </div>
+                    </div>
+                    
+                    <div class="problem-card">
+                        <div class="problem-icon">🔒</div>
+                        <h3>No Universal System</h3>
+                        <p>
+                            Despite advances in digital estate tools, there's no consistent death verification 
+                            across platforms. Death certificates vary by jurisdiction, and many services lack 
+                            proper closure pathways.
+                        </p>
+                        <div class="problem-stats">
+                            Only 23% of platforms have clear deceased policies
+                        </div>
+                    </div>
+                    
+                    <div class="problem-card">
+                        <div class="problem-icon">🤝</div>
+                        <h3>The Trust Gap</h3>
+                        <p>
+                            Users won't share passwords, but they would consent to pre-planned digital actions 
+                            if they control what happens, designate trusted executors, and the system is 
+                            secure and ethical.
+                        </p>
+                        <div class="problem-stats">
+                            92% concerned about digital privacy after death
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section id="vision" class="vision-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>EchoExit's Vision</h2>
+                    <p style="color: #4A6B70; font-size: 1.2rem;">
+                        A human-centered executor of your final digital wishes
+                    </p>
+                </div>
+                
+                <div class="vision-features">
+                    <div class="vision-card">
+                        <div class="vision-icon">🔗</div>
+                        <h3>Connect Accounts</h3>
+                        <p>Securely link your key accounts including email, social media, and cloud storage</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">💌</div>
+                        <h3>Personalized Farewells</h3>
+                        <p>Define custom messages and closure actions for different platforms and people</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">✅</div>
+                        <h3>Verified Activation</h3>
+                        <p>Activates only upon verified death with human-in-the-loop controls</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">🗂️</div>
+                        <h3>Archive & Delete</h3>
+                        <p>Preserve memories and delete digital clutter according to your wishes</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: white; border-radius: 16px;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem;">
+                        It's not a vault. It's a human-centered executor.
+                    </h3>
+                    <p style="color: var(--text-light); max-width: 600px; margin: 0 auto;">
+                        EchoExit fills the gap between tech, trust, and emotional dignity. 
+                        Because even in death, your data should serve your legacy — not outlive your intent.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how" class="how-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How It Works</h2>
+                    <p style="color: #4A6B70;">Simple setup, powerful protection</p>
+                </div>
+                
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>Connect Your Digital Life</h3>
+                            <p>Securely link your accounts using OAuth - no password sharing required</p>
+                        </div>
+                        <div class="step-number">1</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>Define Your Wishes</h3>
+                            <p>Specify what happens to each account and create personalized farewell messages</p>
+                        </div>
+                        <div class="step-number">2</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>Designate Executors</h3>
+                            <p>Choose trusted individuals who can initiate your digital closure plan</p>
+                        </div>
+                        <div class="step-number">3</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>Live Your Life</h3>
+                            <p>Rest easy knowing your digital legacy is protected and your family is prepared</p>
+                        </div>
+                        <div class="step-number">4</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section" style="background: #F0F7F7;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Complete Digital Legacy Protection</h2>
+                    <p style="color: #4A6B70;">Everything your family needs, handled automatically</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚫</div>
+                        <h3>Auto-Cancel Subscriptions</h3>
+                        <p>Save your family $240+/month by automatically canceling recurring payments</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💌</div>
+                        <h3>Farewell Messages</h3>
+                        <p>AI-enhanced personal goodbyes delivered at the right time to the right people</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h3>Bank-Level Security</h3>
+                        <p>Zero-knowledge encryption ensures only you control your data</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Social Media Closure</h3>
+                        <p>Memorial status or deletion for Facebook, Instagram, Twitter, and more</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <h3>Cloud Storage Transfer</h3>
+                        <p>Photos and documents transferred to designated beneficiaries</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⚖️</div>
+                        <h3>Legal Compliance</h3>
+                        <p>Compliant with digital estate laws and platform policies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Now Section -->
+        <section class="section" style="background: white;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Now?</h2>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <div style="display: grid; gap: 2rem; margin-bottom: 3rem;">
+                        <div style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px;">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Our digital lives are more expansive than ever</h3>
+                            <p style="color: var(--text-light);">Average person has 130+ online accounts</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px;">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Digital estate laws are still catching up</h3>
+                            <p style="color: var(--text-light);">Creating opportunity for innovative solutions</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px;">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">AI allows sensitive personalization at scale</h3>
+                            <p style="color: var(--text-light);">Making dignified digital closure accessible to everyone</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px;">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Generational shift toward legacy planning</h3>
+                            <p style="color: var(--text-light);">Millennials and Gen Z embracing end-of-life preparation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="waitlist" class="cta-section">
+            <div class="container">
+                <div class="beta-badge">🚀 BETA LAUNCHING JANUARY 2025</div>
+                <h2>Join the Digital Legacy Revolution</h2>
+                <p class="subtitle">Be among the first to protect your digital afterlife</p>
+                
+                <form id="waitlistForm" style="display: flex; gap: 1rem; max-width: 500px; margin: 2rem auto; flex-wrap: wrap; justify-content: center;">
+                    <input type="email" 
+                           id="waitlistEmail"
+                           placeholder="Enter your email" 
+                           required 
+                           style="flex: 1; min-width: 250px; padding: 1rem; border: none; border-radius: 30px; font-size: 1rem;">
+                    <button type="submit" 
+                            id="waitlistButton"
+                            style="background: #FDB462; color: #1A2B2E; padding: 1rem 2rem; border: none; border-radius: 30px; font-weight: 600; font-size: 1rem; cursor: pointer;">
+                        Join Beta Waitlist
+                    </button>
+                </form>
+                
+                <p id="waitlistMessage" style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem; min-height: 20px;">
+                    ✨ First 100 users get 50% off for life
+                </p>
+                
+                <div style="margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <a href="demo.html" class="btn" style="background: white; color: var(--primary);">
+                        Experience the Interactive Demo
+                    </a>
                 </div>
             </div>
         </section>
@@ -507,124 +994,16 @@
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section id="features" class="section" style="background: #F0F7F7;">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Digital Legacy Protection</h2>
-                    <p style="color: #4A6B70;">Everything your family needs, handled automatically</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚫</div>
-                        <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Auto-Cancel Subscriptions</h3>
-                        <p style="color: #4A6B70;">Save your family $240+/month</p>
-                    </div>
-                    
-                    <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">💌</div>
-                        <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Farewell Messages</h3>
-                        <p style="color: #4A6B70;">AI-enhanced personal goodbyes</p>
-                    </div>
-                    
-                    <div style="text-align: center; padding: 2rem; background: white; border-radius: 16px;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
-                        <h3 style="color: #1A2B2E; margin-bottom: 1rem;">Bank-Level Security</h3>
-                        <p style="color: #4A6B70;">Zero-knowledge encryption</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Demo Section -->
-        <section id="demo" class="section" style="background: white;">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Experience Your Digital Legacy</h2>
-                    <p style="color: #4A6B70;">See exactly how EchoExit saves money AND preserves memories</p>
-                </div>
-                
-                <div class="demo-preview">
-                    <h3 style="text-align: center; color: #1A2B2E; margin-bottom: 2rem;">12-Step Interactive Journey</h3>
-                    
-                    <div class="demo-steps">
-                        <div class="demo-step">
-                            <div class="demo-step-icon">🔍</div>
-                            <h4>Calculate Costs</h4>
-                            <p>See what happens to your 130+ accounts</p>
-                        </div>
-                        
-                        <div class="demo-step">
-                            <div class="demo-step-icon">💰</div>
-                            <h4>Financial Impact</h4>
-                            <p>Discover how much your family could save</p>
-                        </div>
-                        
-                        <div class="demo-step">
-                            <div class="demo-step-icon">🕊️</div>
-                            <h4>Build Memorial</h4>
-                            <p>Create a beautiful digital legacy</p>
-                        </div>
-                        
-                        <div class="demo-step">
-                            <div class="demo-step-icon">💌</div>
-                            <h4>Final Messages</h4>
-                            <p>Write your farewell words</p>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #1DB5B5, #17999B); color: white; border-radius: 16px; margin: 2rem 0;">
-                        <h4 style="font-size: 1.8rem; margin-bottom: 1rem;">Complete Value Proposition</h4>
-                        <p style="opacity: 0.9;">Financial Protection + Memory Preservation + Peace of Mind</p>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <a href="demo.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
-                            Try Full Interactive Demo →
-                        </a>
-                        <p style="color: #4A6B70; margin-top: 1rem; font-size: 0.9rem;">
-                            Takes 5 minutes • Fully personalized • No signup required
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Waitlist Section -->
-        <section id="waitlist" class="section" style="background: linear-gradient(135deg, #1DB5B5, #17999B); color: white;">
-            <div class="container">
-                <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Join the Beta</h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get 50% off for life as a founding member</p>
-                    
-                    <form id="waitlistForm" style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
-                        <input type="email" 
-                               id="waitlistEmail"
-                               placeholder="Enter your email" 
-                               required 
-                               style="flex: 1; min-width: 250px; padding: 1rem; border: none; border-radius: 30px; font-size: 1rem;">
-                        <button type="submit" 
-                                id="waitlistButton"
-                                style="background: #FDB462; color: #1A2B2E; padding: 1rem 2rem; border: none; border-radius: 30px; font-weight: 600; font-size: 1rem; cursor: pointer;">
-                            Join Waitlist
-                        </button>
-                    </form>
-                    
-                    <p id="waitlistMessage" style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem; min-height: 20px;">
-                        ✨ First 100 users get 50% off for life
-                    </p>
-                </div>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer>
             <div class="container">
                 <div class="footer-content">
-                    <div>
+                    <div class="footer-column">
                         <h3>EchoExit</h3>
-                        <p style="margin: 1rem 0; opacity: 0.8;">Your digital legacy, executed with care.</p>
+                        <p style="margin: 1rem 0; opacity: 0.8;">
+                            Your digital legacy, executed with care.<br>
+                            Plan the goodbye your data deserves.
+                        </p>
                         <div class="social-links">
                             <a href="https://x.com/EchoExitAI" target="_blank">𝕏</a>
                             <a href="https://www.instagram.com/exchoexitai/" target="_blank">📷</a>
@@ -632,16 +1011,35 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <div class="footer-column">
+                        <h3>Product</h3>
+                        <a href="#features">Features</a>
+                        <a href="#how">How It Works</a>
+                        <a href="demo.html">Interactive Demo</a>
+                        <a href="roadmap.html">Roadmap</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <a href="#problem">About</a>
+                        <a href="#vision">Mission</a>
+                        <a href="roadmap.html#legal">Legal & Compliance</a>
+                        <a href="admin.html">Admin Portal</a>
+                    </div>
+                    
+                    <div class="footer-column">
                         <h3>Contact</h3>
                         <p style="margin: 1rem 0; opacity: 0.8;">
                             Email: <a href="mailto:echoexitadm@gmail.com" style="color: #1DB5B5;">echoexitadm@gmail.com</a>
+                        </p>
+                        <p style="opacity: 0.8;">
+                            Beta Launch: January 2025
                         </p>
                     </div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <p style="opacity: 0.6;">&copy; 2025 EchoExit. All rights reserved.</p>
+                    <p style="opacity: 0.6;">&copy; 2025 EchoExit. All rights reserved. | Every Echo Has Its End.</p>
                 </div>
             </div>
         </footer>
@@ -745,7 +1143,7 @@
                 
                 setTimeout(() => {
                     button.disabled = false;
-                    button.textContent = 'Join Waitlist';
+                    button.textContent = 'Join Beta Waitlist';
                     button.style.background = '#FDB462';
                     button.style.opacity = '1';
                     message.innerHTML = '✨ First 100 users get 50% off for life';
