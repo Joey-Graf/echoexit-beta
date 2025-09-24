@@ -163,16 +163,24 @@
             font-size: 0.9rem;
         }
         
-        .back-link {
+        .back-link, .nav-link {
             display: inline-block;
             margin-top: 1rem;
+            margin-right: 1rem;
             color: #1DB5B5;
             text-decoration: none;
             font-size: 0.9rem;
         }
         
-        .back-link:hover {
+        .back-link:hover, .nav-link:hover {
             text-decoration: underline;
+        }
+        
+        .nav-links {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
         }
         
         .refresh-btn {
@@ -221,7 +229,10 @@
             <input type="password" id="password" placeholder="Password">
             <button onclick="login()">Login to Dashboard</button>
             <p id="error"></p>
-            <a href="index.html" class="back-link">← Back to Main Site</a>
+            <div class="nav-links">
+                <a href="index.html" class="back-link">← Back to Main Site</a>
+                <a href="roadmap.html" class="nav-link">View Roadmap</a>
+            </div>
         </div>
 
         <!-- Dashboard (hidden initially) -->
@@ -255,7 +266,11 @@
             </div>
             
             <button onclick="logout()" class="logout-btn">Logout</button>
-            <a href="index.html" class="back-link">← Back to Main Site</a>
+            <div class="nav-links">
+                <a href="index.html" class="back-link">← Back to Main Site</a>
+                <a href="roadmap.html" class="nav-link">View Roadmap</a>
+                <a href="demo.html" class="nav-link">View Demo</a>
+            </div>
         </div>
     </div>
 

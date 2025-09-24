@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoExit Roadmap - From Vision to Reality</title>
+    <meta name="description" content="EchoExit's journey from beta to becoming the trusted standard for digital legacy management. See our technical milestones, legal framework, and growth phases.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1DB5B5;
+            --primary-dark: #17999B;
+            --accent: #FDB462;
+            --text: #1A2B2E;
+            --text-light: #4A6B70;
+            --bg: #FFFFFF;
+            --bg-light: #F0F7F7;
+            --border: #D1E5E5;
+            --success: #48BB78;
+            --warning: #F6AD55;
+            --dark-bg: #0F1F21;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1DB5B5;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #1DB5B5;
+        }
+        
+        .nav-cta {
+            background: #1DB5B5;
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-cta:hover {
+            background: #17999B;
+            transform: translateY(-1px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #0F1F21 0%, #1A2B2E 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(29, 181, 181, 0.1), transparent);
+            top: -200px;
+            right: -200px;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 50px) scale(1.1); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #1DB5B5;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #B8D4D4;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            height: 8px;
+            margin: 3rem auto;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            height: 100%;
+            width: 35%;
+            border-radius: 30px;
+            position: relative;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        .current-status {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+            align-items: flex-start;
+        }
+        
+        .timeline-item.left {
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+        }
+        
+        .timeline-item.right {
+            justify-content: flex-start;
+            padding-left: calc(50% + 30px);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 10px;
+            z-index: 1;
+        }
+        
+        .timeline-dot.completed {
+            background: var(--success);
+        }
+        
+        .timeline-dot.current {
+            background: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+        
+        .timeline-content {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 400px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .milestone-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .milestone-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+        
+        .milestone-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .milestone-list li.completed::before {
+            content: '✓';
+            background: var(--success);
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+        }
+        
+        /* Legal Section */
+        #legal {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .legal-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .legal-card h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .legal-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .legal-card li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .legal-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        /* Technical Architecture */
+        .tech-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .tech-category {
+            text-align: center;
+        }
+        
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .tech-category h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .tech-item {
+            background: var(--bg-light);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Investment Section */
+        .investment-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+        
+        .investment-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tier-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .tier-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-stage {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .tier-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: white;
+            text-align: center;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #1DB5B5;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #17999B;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #1DB5B5;
+            border: 2px solid #1DB5B5;
+        }
+        
+        .btn-secondary:hover {
+            background: #1DB5B5;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background: #0F1F21;
+            color: white;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                padding-left: 60px !important;
+                padding-right: 20px !important;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                max-width: 100%;
+            }
+            
+            .legal-grid,
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+    // Check authentication
+    (function() {
+        const AUTH_KEY = 'echoexit_staging_auth';
+        const AUTH_EXPIRY_KEY = 'echoexit_staging_expiry';
+        
+        const isAuthenticated = sessionStorage.getItem(AUTH_KEY);
+        const authExpiry = sessionStorage.getItem(AUTH_EXPIRY_KEY);
+        const now = new Date().getTime();
+        
+        if (!isAuthenticated || !authExpiry || now > parseInt(authExpiry)) {
+            sessionStorage.removeItem(AUTH_KEY);
+            sessionStorage.removeItem(AUTH_EXPIRY_KEY);
+            window.location.href = 'index.html';
+        }
+    })();
+    </script>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <img src="images/echoexit-logo.png" alt="EchoExit" onerror="this.style.display='none'">
+                    <span class="logo-text">EchoExit</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="demo.html">Demo</a>
+                    <a href="#timeline">Timeline</a>
+                    <a href="#legal">Legal</a>
+                    <a href="#investment">Investment</a>
+                    <a href="index.html#waitlist" class="nav-cta">Join Beta</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Building the Future of Digital Legacy</h1>
+                <p class="hero-subtitle">
+                    From beta launch to becoming the trusted global standard for digital estate management. 
+                    Follow our journey as we solve one of the most overlooked problems of the digital age.
+                </p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p style="color: #B8D4D4; margin-top: 1rem;">Progress to Launch: 35% Complete</p>
+                <span class="current-status">🚀 Beta Launch: January 2025</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Development Timeline</h2>
+                <p style="color: #4A6B70; font-size: 1.2rem;">
+                    Strategic milestones from concept to scale
+                </p>
+            </div>
+            
+            <div class="timeline">
+                <!-- Q4 2024 - Current -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot completed"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q4 2024 - CURRENT</div>
+                        <h3 class="timeline-title">Foundation Phase</h3>
+                        <p>Building core platform and gathering early feedback</p>
+                        <ul class="milestone-list">
+                            <li class="completed">Beta site deployed on Vercel</li>
+                            <li class="completed">Interactive demo complete</li>
+                            <li class="completed">Social media presence established</li>
+                            <li class="completed">Firebase authentication integrated</li>
+                            <li>Waitlist system active</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Q1 2025 - Beta Launch -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot current"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q1 2025 - BETA LAUNCH</div>
+                        <h3 class="timeline-title">Public Beta & MVP</h3>
+                        <p>Core features for early adopters</p>
+                        <ul class="milestone-list">
+                            <li>OAuth integrations (Google, Facebook, Apple)</li>
+                            <li>Subscription detection API</li>
+                            <li>Death verification system v1</li>
+                            <li>Executor notification system</li>
+                            <li>Stripe payment processing</li>
+                            <li>100 beta users onboarded</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Q2 2025 - Growth -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q2 2025 - GROWTH</div>
+                        <h3 class="timeline-title">Platform Expansion</h3>
+                        <p>Scaling features and user base</p>
+                        <ul class="milestone-list">
+                            <li>20+ platform integrations</li>
+                            <li>AI-powered message enhancement</li>
+                            <li>Mobile apps (iOS/Android)</li>
+                            <li>Automated verification partners</li>
+                            <li>1,000+ active users</li>
+                            <li>Series A fundraising</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Q3-Q4 2025 - Scale -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q3-Q4 2025 - SCALE</div>
+                        <h3 class="timeline-title">Market Leadership</h3>
+                        <p>Becoming the industry standard</p>
+                        <ul class="milestone-list">
+                            <li>International expansion (EU, UK, CA)</li>
+                            <li>Cryptocurrency wallet support</li>
+                            <li>Digital asset valuation tools</li>
+                            <li>Partner API program</li>
+                            <li>10,000+ users globally</li>
+                            <li>SOC 2 Type II certification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2026 - Vision -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026 - VISION</div>
+                        <h3 class="timeline-title">Industry Standard</h3>
+                        <p>The trusted name in digital legacy</p>
+                        <ul class="milestone-list">
+                            <li>50+ country availability</li>
+                            <li>Enterprise solutions</li>
+                            <li>Insurance partnerships</li>
+                            <li>100,000+ protected legacies</li>
+                            <li>IPO preparation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal & Compliance Section -->
+    <section id="legal" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Legal & Compliance Framework</h2>
+                <p style="color: #4A6B70; font-size: 1.2rem;">
+                    Building trust through comprehensive legal infrastructure
+                </p>
+            </div>
+            
+            <div class="legal-grid">
+                <div class="legal-card">
+                    <h3>🏢 Business Formation</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1rem;">
+                        Establishing proper corporate structure
+                    </p>
+                    <ul>
+                        <li>Delaware C-Corp formation <span class="priority-badge">Q1 2025</span></li>
+                        <li>EIN registration</li>
+                        <li>Business bank accounts</li>
+                        <li>Corporate bylaws</li>
+                        <li>Stock option pool</li>
+                    </ul>
+                </div>
+                
+                <div class="legal-card">
+                    <h3>📜 Legal Documentation</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1rem;">
+                        User protection and transparency
+                    </p>
+                    <ul>
+                        <li>Terms of Service <span class="priority-badge">Priority</span></li>
+                        <li>Privacy Policy (GDPR/CCPA)</li>
+                        <li>User Agreement</li>
+                        <li>Executor Agreement</li>
+                        <li>Data Processing Agreements</li>
+                    </ul>
+                </div>
+                
+                <div class="legal-card">
+                    <h3>⚖️ Regulatory Compliance</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1rem;">
+                        Meeting state and federal requirements
+                    </p>
+                    <ul>
+                        <li>RUFADAA compliance review</li>
+                        <li>State digital asset laws</li>
+                        <li>Data protection registration</li>
+                        <li>SOC 2 Type I certification</li>
+                        <li>HIPAA compliance assessment</li>
+                    </ul>
+                </div>
+                
+                <div class="legal-card">
+                    <h3>🤝 Platform Partnerships</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1rem;">
+                        Official integrations and approvals
+                    </p>
+                    <ul>
+                        <li>Facebook Legacy Contact API</li>
+                        <li>Google Inactive Account Manager</li>
+                        <li>Apple Digital Legacy program</li>
+                        <li>Microsoft account recovery</li>
+                        <li>Banking API partnerships</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Architecture Section -->
+    <section class="tech-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Infrastructure</h2>
+                <p style="color: #4A6B70; font-size: 1.2rem;">
+                    Enterprise-grade technology stack
+                </p>
+            </div>
+            
+            <div class="tech-stack">
+                <div class="tech-category">
+                    <div class="tech-icon">🔐</div>
+                    <h3>Security</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Zero-Knowledge Encryption</span>
+                        <span class="tech-item">2FA/MFA</span>
+                        <span class="tech-item">OAuth 2.0</span>
+                        <span class="tech-item">SSL/TLS</span>
+                        <span class="tech-item">Audit Logs</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <div class="tech-icon">☁️</div>
+                    <h3>Infrastructure</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Vercel Hosting</span>
+                        <span class="tech-item">Firebase Backend</span>
+                        <span class="tech-item">CloudFlare CDN</span>
+                        <span class="tech-item">AWS S3 Storage</span>
+                        <span class="tech-item">Redis Cache</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <div class="tech-icon">🔗</div>
+                    <h3>Integrations</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Stripe Payments</span>
+                        <span class="tech-item">SendGrid Email</span>
+                        <span class="tech-item">Twilio SMS</span>
+                        <span class="tech-item">Platform APIs</span>
+                        <span class="tech-item">Webhook System</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <div class="tech-icon">🤖</div>
+                    <h3>AI & Automation</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">GPT-4 Integration</span>
+                        <span class="tech-item">Message Enhancement</span>
+                        <span class="tech-item">Sentiment Analysis</span>
+                        <span class="tech-item">Smart Scheduling</span>
+                        <span class="tech-item">Pattern Detection</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Section -->
+    <section id="investment" class="investment-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white; font-family: 'Crimson Text', serif;">Investment Roadmap</h2>
+                <p style="color: rgba(255,255,255,0.8); font-size: 1.2rem;">
+                    Strategic funding to accelerate growth
+                </p>
+            </div>
+            
+            <div class="investment-tiers">
+                <div class="tier-card">
+                    <div class="tier-amount">$250K</div>
+                    <div class="tier-stage">Pre-Seed Round</div>
+                    <div class="tier-description">
+                        Initial capital for MVP development, legal setup, and first 100 users. 
+                        Target close: Q1 2025
+                    </div>
+                </div>
+                
+                <div class="tier-card">
+                    <div class="tier-amount">$2M</div>
+                    <div class="tier-stage">Seed Round</div>
+                    <div class="tier-description">
+                        Scale to 1,000 users, complete platform integrations, mobile apps. 
+                        Target close: Q2 2025
+                    </div>
+                </div>
+                
+                <div class="tier-card">
+                    <div class="tier-amount">$10M</div>
+                    <div class="tier-stage">Series A</div>
+                    <div class="tier-description">
+                        International expansion, enterprise features, 10,000+ users. 
+                        Target close: Q4 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics Section -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Success Metrics</h2>
+                <p style="color: #4A6B70; font-size: 1.2rem;">
+                    Tracking our path to market leadership
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">$240</div>
+                    <div style="color: var(--text-light);">Avg. monthly savings per user</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">87%</div>
+                    <div style="color: var(--text-light);">User satisfaction rate</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">45%</div>
+                    <div style="color: var(--text-light);">Month-over-month growth</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">$120</div>
+                    <div style="color: var(--text-light);">Customer acquisition cost</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Crimson Text', serif;">
+                Be Part of the Journey
+            </h2>
+            <p style="color: var(--text-light); font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem;">
+                Join us as we build the future of digital legacy management. 
+                Early supporters get lifetime benefits.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="index.html#waitlist" class="btn btn-primary">Join Beta Program</a>
+                <a href="demo.html" class="btn btn-secondary">Try the Demo</a>
+                <a href="mailto:echoexitadm@gmail.com" class="btn btn-secondary">Contact Team</a>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">For Investors & Partners</h3>
+                <p style="color: var(--text-light);">
+                    Interested in partnering or investing? We're actively seeking strategic partners 
+                    who share our vision for dignified digital closure.
+                </p>
+                <a href="mailto:echoexitadm@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                    echoexitadm@gmail.com →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EchoExit</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">
+                        Building the future of digital legacy management.<br>
+                        Beta launching January 2025.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <a href="index.html">Home</a>
+                    <a href="demo.html">Interactive Demo</a>
+                    <a href="#timeline">Development Timeline</a>
+                    <a href="#legal">Legal Framework</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <a href="#investment">Investment</a>
+                    <a href="admin.html">Admin Portal</a>
+                    <a href="index.html#vision">Mission</a>
+                    <a href="index.html#waitlist">Join Waitlist</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <a href="https://x.com/EchoExitAI" target="_blank">Twitter/X</a>
+                    <a href="https://www.instagram.com/exchoexitai/" target="_blank">Instagram</a>
+                    <a href="https://www.linkedin.com/in/echo-exit-85069b382/" target="_blank">LinkedIn</a>
+                    <a href="mailto:echoexitadm@gmail.com">Email</a>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="opacity: 0.6;">&copy; 2025 EchoExit. All rights reserved. | Every Echo Has Its End.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
