@@ -9,6 +9,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- External CSS (optional - uncomment if you want to use external CSS file) -->
+    <!-- <link rel="stylesheet" href="demo.css"> -->
+    
     <style>
         * {
             margin: 0;
@@ -194,7 +197,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             padding: 1rem;
             background: var(--bg-light);
@@ -243,6 +246,22 @@
         .subscription-price {
             color: #E65100;
             font-size: 0.9rem;
+        }
+        
+        .custom-subscription {
+            background: white !important;
+            border: 2px dashed var(--primary) !important;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .custom-subscription input {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 100%;
         }
         
         .total-display {
@@ -338,6 +357,21 @@
             margin: 0.5rem 0;
         }
         
+        #impactCounter {
+            background: linear-gradient(135deg, rgba(253, 180, 98, 0.1), rgba(253, 180, 98, 0.05));
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
         .template-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -386,7 +420,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
         
         .photo-item {
@@ -395,6 +429,7 @@
             border: 2px solid var(--border);
             border-radius: 8px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -404,6 +439,11 @@
             text-align: center;
             padding: 0.5rem;
             color: var(--text-light);
+        }
+        
+        .photo-item span:first-child {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
         }
         
         .photo-item:hover {
@@ -430,6 +470,13 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+        }
+        
+        #photoCount {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
         
         .achievement-list {
@@ -463,10 +510,13 @@
             background: white;
             border-radius: 8px;
             border: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
         }
         
         .achievement-item input {
-            width: 100%;
+            flex: 1;
             background: transparent;
             border: none;
             color: var(--text);
@@ -475,6 +525,31 @@
         
         .achievement-item input:focus {
             outline: none;
+        }
+        
+        .remove-achievement {
+            background: none;
+            border: none;
+            color: #E53E3E;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 0.3rem;
+        }
+        
+        .add-achievement-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .add-achievement-btn:hover {
+            background: var(--primary);
+            color: white;
         }
         
         .message-composer {
@@ -494,7 +569,7 @@
         .tone-selector {
             display: flex;
             gap: 0.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
         
@@ -516,6 +591,32 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+        }
+        
+        #messagePreview {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: var(--text-light);
+            min-height: 80px;
+        }
+        
+        .enhance-btn {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--accent), #FCA346);
+            color: var(--text);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .enhance-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(253, 180, 98, 0.3);
         }
         
         .memorial-preview {
@@ -608,7 +709,7 @@
             font-size: 1.2rem;
         }
         
-        .memorial-photos {
+        #memorialPhotosContainer {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 0.5rem;
@@ -625,9 +726,10 @@
             color: var(--text-light);
             text-align: center;
             padding: 0.5rem;
+            cursor: pointer;
         }
         
-        .memorial-achievements {
+        #memorialAchievementsContainer {
             display: grid;
             gap: 1rem;
         }
@@ -866,6 +968,36 @@
             font-size: 1rem;
         }
         
+        #offerTimer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(253, 180, 98, 0.1);
+            border-radius: 8px;
+        }
+        
+        .signup-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .demo-header h1 {
@@ -940,32 +1072,13 @@
     </style>
 </head>
 <body>
-    <script>
-    // Check if user is authenticated from main site
-    (function() {
-        const AUTH_KEY = 'echoexit_staging_auth';
-        const AUTH_EXPIRY_KEY = 'echoexit_staging_expiry';
-        
-        const isAuthenticated = sessionStorage.getItem(AUTH_KEY);
-        const authExpiry = sessionStorage.getItem(AUTH_EXPIRY_KEY);
-        const now = new Date().getTime();
-        
-        // If not authenticated or expired, redirect to main page
-        if (!isAuthenticated || !authExpiry || now > parseInt(authExpiry)) {
-            sessionStorage.removeItem(AUTH_KEY);
-            sessionStorage.removeItem(AUTH_EXPIRY_KEY);
-            window.location.href = 'index.html';
-        }
-    })();
-    </script>
-
     <div class="demo-container">
         <div class="progress-bar">
             <div class="progress-fill" id="progressBar"></div>
         </div>
         
         <div class="demo-header">
-            <h1 id="mainTitle">Your Digital Legacy Calculator</h1>
+            <h1 id="mainTitle">Your Digital Death Calculator</h1>
             <div class="step-indicator">
                 <span class="step-dot active"></span>
                 <span class="step-dot"></span>
@@ -1060,6 +1173,38 @@
                         </div>
                     </div>
                     
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'HBO Max', 15.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">HBO Max</span>
+                            <span class="subscription-price">$15.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'ChatGPT Plus', 20.00)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">ChatGPT Plus</span>
+                            <span class="subscription-price">$20.00/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Gym Membership', 49.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Gym Membership</span>
+                            <span class="subscription-price">$49.99/mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Cloud Storage', 9.99)">
+                        <input type="checkbox">
+                        <div class="subscription-info">
+                            <span class="subscription-name">Cloud Storage</span>
+                            <span class="subscription-price">$9.99/mo</span>
+                        </div>
+                    </div>
+                    
                     <div class="subscription-item" onclick="toggleSubscription(this, 'Adobe Creative', 54.99)">
                         <input type="checkbox">
                         <div class="subscription-info">
@@ -1092,20 +1237,11 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Microsoft 365', 12.99)">
-                        <input type="checkbox">
-                        <div class="subscription-info">
-                            <span class="subscription-name">Microsoft 365</span>
-                            <span class="subscription-price">$12.99/mo</span>
-                        </div>
-                    </div>
-                    
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Dropbox', 9.99)">
-                        <input type="checkbox">
-                        <div class="subscription-info">
-                            <span class="subscription-name">Dropbox</span>
-                            <span class="subscription-price">$9.99/mo</span>
-                        </div>
+                    <!-- Custom Subscription Input -->
+                    <div class="custom-subscription">
+                        <input type="text" id="customName" placeholder="Service name">
+                        <input type="number" id="customPrice" placeholder="Monthly cost ($)" step="0.01">
+                        <button class="add-btn" onclick="addCustomSubscription()">+ Add Service</button>
                     </div>
                 </div>
                 
@@ -1151,6 +1287,8 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Impact counter will be inserted here by JavaScript -->
                 
                 <div class="navigation">
                     <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
@@ -1211,36 +1349,63 @@
             <!-- Step 7: Photo Selection -->
             <div class="step" id="step7">
                 <h2>Select Memorial Photos</h2>
-                <p>Choose photos that tell your story</p>
+                <p id="photoCount">3 photos selected for your memorial</p>
                 
                 <div class="photo-grid">
                     <div class="photo-item selected" onclick="togglePhoto(this)">
-                        📸<br>Wedding Day
+                        <span>📸</span>
+                        <span>Wedding Day</span>
                     </div>
                     <div class="photo-item selected" onclick="togglePhoto(this)">
-                        🏖️<br>Family Vacation
+                        <span>🏖️</span>
+                        <span>Family Vacation</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        🎓<br>Graduation
+                        <span>🎓</span>
+                        <span>Graduation</span>
                     </div>
                     <div class="photo-item selected" onclick="togglePhoto(this)">
-                        👶<br>Kids' Birth
+                        <span>👶</span>
+                        <span>Kids' Birth</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        🏔️<br>Adventures
+                        <span>🏔️</span>
+                        <span>Adventures</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        🎄<br>Holidays
+                        <span>🎄</span>
+                        <span>Holidays</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        🏆<br>Achievements
+                        <span>🏆</span>
+                        <span>Achievements</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        👥<br>Friends
+                        <span>👥</span>
+                        <span>Friends</span>
                     </div>
                     <div class="photo-item" onclick="togglePhoto(this)">
-                        🏠<br>Home
+                        <span>🏠</span>
+                        <span>Home</span>
                     </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎨</span>
+                        <span>Hobbies</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🌅</span>
+                        <span>Travel</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎂</span>
+                        <span>Celebrations</span>
+                    </div>
+                </div>
+                
+                <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <p style="color: var(--text-light); text-align: center;">
+                        💡 Your photos will be displayed in a beautiful gallery format on your memorial page
+                    </p>
                 </div>
                 
                 <button class="add-btn" style="margin-top: 1rem;">+ Upload Custom Photos</button>
@@ -1257,49 +1422,84 @@
                 <p>Share your proudest moments and passions</p>
                 
                 <div class="achievement-list">
-                    <div class="achievement-category">
+                    <div class="achievement-category" data-category="education">
                         <h4>🎓 Education & Career</h4>
                         <div class="achievement-items">
                             <div class="achievement-item">
-                                <input type="text" value="MBA from Harvard Business School" />
+                                <input type="text" value="MBA from Harvard Business School" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" value="Founded two successful startups" />
+                                <input type="text" value="Founded two successful startups" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" placeholder="Add achievement..." />
+                                <input type="text" value="30 years in technology leadership" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                         </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('education')">+ Add Achievement</button>
                     </div>
                     
-                    <div class="achievement-category">
+                    <div class="achievement-category" data-category="hobbies">
                         <h4>🎨 Hobbies & Passions</h4>
                         <div class="achievement-items">
                             <div class="achievement-item">
-                                <input type="text" value="Climbed 14 mountain peaks" />
+                                <input type="text" value="Climbed 14 mountain peaks" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" value="Jazz pianist for 20 years" />
+                                <input type="text" value="Jazz pianist for 20 years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" placeholder="Add hobby..." />
+                                <input type="text" value="Published 3 novels" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Traveled to 47 countries" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                         </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('hobbies')">+ Add Hobby</button>
                     </div>
                     
-                    <div class="achievement-category">
+                    <div class="achievement-category" data-category="family">
                         <h4>👨‍👩‍👧‍👦 Family & Community</h4>
                         <div class="achievement-items">
                             <div class="achievement-item">
-                                <input type="text" value="Married 25 wonderful years" />
+                                <input type="text" value="Married 25 wonderful years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" value="Coached little league for 10 years" />
+                                <input type="text" value="Raised 3 amazing children" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                             <div class="achievement-item">
-                                <input type="text" placeholder="Add memory..." />
+                                <input type="text" value="Coached little league for 10 years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Volunteered at food bank weekly" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
                             </div>
                         </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('family')">+ Add Memory</button>
+                    </div>
+                    
+                    <div class="achievement-category" data-category="legacy">
+                        <h4>🌟 Values & Legacy</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Always put family first" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Mentored dozens of young professionals" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('legacy')">+ Add Value</button>
                     </div>
                 </div>
                 
@@ -1321,13 +1521,20 @@
                         <button class="tone-btn" onclick="selectTone(this, 'inspirational')">Inspirational</button>
                         <button class="tone-btn" onclick="selectTone(this, 'humorous')">Light & Humorous</button>
                         <button class="tone-btn" onclick="selectTone(this, 'formal')">Formal</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'spiritual')">Spiritual</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'poetic')">Poetic</button>
                     </div>
+                    
+                    <label style="margin-top: 1rem;">Message Preview:</label>
+                    <div id="messagePreview">To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments...</div>
                 </div>
                 
                 <div class="input-group">
-                    <label>Your Message</label>
+                    <label>Customize Your Message</label>
                     <textarea id="finalMessage" rows="6" placeholder="Write your message here...">To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments. Remember me not with sadness, but with the joy we shared. Take care of each other, chase your dreams, and never forget to tell the people you love how much they mean to you. Until we meet again...</textarea>
                 </div>
+                
+                <button class="enhance-btn" onclick="enhanceMessage()">✨ Enhance with AI</button>
                 
                 <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
                     <button class="add-btn">🎤 Record Audio Message</button>
@@ -1353,39 +1560,24 @@
                     </div>
                     
                     <div class="memorial-nav">
-                        <span class="memorial-nav-item active" onclick="showMemorialSection('photos')">Photos</span>
-                        <span class="memorial-nav-item" onclick="showMemorialSection('story')">Life Story</span>
-                        <span class="memorial-nav-item" onclick="showMemorialSection('message')">Message</span>
+                        <span class="memorial-nav-item active" onclick="showMemorialSection('photos', this)">Photos</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('story', this)">Life Story</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('message', this)">Message</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('memories', this)">Memories</span>
                     </div>
                     
                     <div class="memorial-content">
                         <div class="memorial-section active" id="memorial-photos">
                             <h3>Photo Memories</h3>
-                            <div class="memorial-photos">
-                                <div class="memorial-photo-item">📸 Wedding</div>
-                                <div class="memorial-photo-item">🏖️ Vacation</div>
-                                <div class="memorial-photo-item">👶 Family</div>
-                                <div class="memorial-photo-item">🏔️ Adventures</div>
+                            <div id="memorialPhotosContainer">
+                                <!-- Photos will be populated by JavaScript -->
                             </div>
                         </div>
                         
                         <div class="memorial-section" id="memorial-story">
                             <h3>Life Achievements</h3>
-                            <div class="memorial-achievements">
-                                <div class="memorial-achievement-group">
-                                    <h4>🎓 Education & Career</h4>
-                                    <ul>
-                                        <li>MBA from Harvard Business School</li>
-                                        <li>Founded two successful startups</li>
-                                    </ul>
-                                </div>
-                                <div class="memorial-achievement-group">
-                                    <h4>🎨 Passions</h4>
-                                    <ul>
-                                        <li>Climbed 14 mountain peaks</li>
-                                        <li>Jazz pianist for 20 years</li>
-                                    </ul>
-                                </div>
+                            <div id="memorialAchievementsContainer">
+                                <!-- Achievements will be populated by JavaScript -->
                             </div>
                         </div>
                         
@@ -1395,11 +1587,23 @@
                                 <span id="memorialMessageText">To everyone who visits this memorial, thank you for being part of my journey...</span>
                             </div>
                         </div>
+                        
+                        <div class="memorial-section" id="memorial-memories">
+                            <h3>Shared Memories</h3>
+                            <div id="memories-container">
+                                <p style="text-align: center; color: var(--text-light);">
+                                    Family and friends can add memories here
+                                </p>
+                            </div>
+                            <p style="text-align: center; margin-top: 1rem;">
+                                <span id="visitorCount">142</span> people have visited this memorial
+                            </p>
+                        </div>
                     </div>
                     
                     <div class="memorial-actions">
                         <button class="memorial-btn" style="background: #1DB5B5; color: white;">🔗 Share Memorial</button>
-                        <button class="memorial-btn" style="background: #F7FAFC; color: #4A6B70;">💐 Leave Memory</button>
+                        <button class="memorial-btn" style="background: #F7FAFC; color: #4A6B70;" onclick="simulateMemoryAdd()">💐 Leave Memory</button>
                     </div>
                 </div>
                 
@@ -1422,25 +1626,25 @@
                     <div class="feature-card">
                         <h4>📅 Scheduled Messages</h4>
                         <p>Send birthday wishes, anniversary messages, and milestone congratulations for years to come</p>
-                        <button class="add-btn">Schedule Messages</button>
+                        <button class="add-btn" onclick="showFeatureDetails('scheduled')">Schedule Messages</button>
                     </div>
                     
                     <div class="feature-card">
                         <h4>🎁 Digital Asset Transfer</h4>
                         <p>Automatically transfer photos, documents, and digital assets to designated beneficiaries</p>
-                        <button class="add-btn">Set Beneficiaries</button>
+                        <button class="add-btn" onclick="showFeatureDetails('assets')">Set Beneficiaries</button>
                     </div>
                     
                     <div class="feature-card">
                         <h4>💝 Charity Donations</h4>
                         <p>Set up automatic donations to your favorite charities in your memory</p>
-                        <button class="add-btn">Choose Charities</button>
+                        <button class="add-btn" onclick="showFeatureDetails('charity')">Choose Charities</button>
                     </div>
                     
                     <div class="feature-card">
                         <h4>📖 Life Story Book</h4>
                         <p>Create a printed book of your life story and memories for family</p>
-                        <button class="add-btn">Design Book</button>
+                        <button class="add-btn" onclick="showFeatureDetails('book')">Design Book</button>
                     </div>
                 </div>
                 
@@ -1508,6 +1712,8 @@
                     <p class="discount-badge">
                         🎉 50% OFF for Beta Users - Lifetime Discount!
                     </p>
+                    
+                    <div id="offerTimer"></div>
                 </div>
                 
                 <button class="btn btn-cta" onclick="signUp()">
@@ -1526,106 +1732,7 @@
         </div>
     </div>
     
-    <script>
-        // Demo functionality JavaScript (same as your original)
-        let currentStep = 1;
-        const totalSteps = 12;
-        let userData = {
-            name: 'John',
-            spouse: 'Sarah',
-            motto: 'Living one adventure at a time',
-            monthlyTotal: 40.97,
-            subscriptions: ['Netflix', 'Spotify', 'Amazon Prime'],
-            template: 'classic',
-            photos: ['Wedding Day', 'Family Vacation', "Kids' Birth"],
-            achievements: {
-                education: ['MBA from Harvard Business School', 'Founded two successful startups'],
-                hobbies: ['Climbed 14 mountain peaks', 'Jazz pianist for 20 years'],
-                family: ['Married 25 wonderful years', 'Coached little league for 10 years']
-            },
-            message: '',
-            tone: 'warm'
-        };
-        
-        // All your existing demo JavaScript functions go here...
-        // (nextStep, previousStep, calculateTotal, etc.)
-        
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                saveCurrentStepData();
-                document.getElementById('step' + currentStep).classList.remove('active');
-                currentStep++;
-                document.getElementById('step' + currentStep).classList.add('active');
-                updateStepSpecificContent();
-                updateProgress();
-                scrollToTop();
-            }
-        }
-        
-        function previousStep() {
-            if (currentStep > 1) {
-                document.getElementById('step' + currentStep).classList.remove('active');
-                currentStep--;
-                document.getElementById('step' + currentStep).classList.add('active');
-                updateProgress();
-                scrollToTop();
-            }
-        }
-        
-        function updateProgress() {
-            const progress = (currentStep / totalSteps) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            
-            document.querySelectorAll('.step-dot').forEach((dot, index) => {
-                if (index < currentStep) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-        
-        function saveCurrentStepData() {
-            // Save form data based on current step
-        }
-        
-        function updateStepSpecificContent() {
-            // Update dynamic content based on current step
-        }
-        
-        function scrollToTop() {
-            document.querySelector('.demo-container').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function toggleSubscription(element, name, price) {
-            const checkbox = element.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
-            element.classList.toggle('selected');
-            calculateTotal();
-        }
-        
-        function calculateTotal() {
-            let total = 0;
-            document.querySelectorAll('.subscription-item input:checked').forEach(checkbox => {
-                const priceText = checkbox.parentElement.querySelector('.subscription-price').textContent;
-                const price = parseFloat(priceText.replace('$', '').replace('/mo', ''));
-                total += price;
-            });
-            
-            userData.monthlyTotal = total;
-            document.getElementById('monthlyTotal').textContent = total.toFixed(2);
-            document.getElementById('yearlyTotal').textContent = (total * 12).toFixed(2);
-        }
-        
-        function goToMainSite() {
-            window.location.href = 'index.html';
-        }
-        
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', function() {
-            calculateTotal();
-            updateProgress();
-        });
-    </script>
+    <!-- Include the demo.js file -->
+    <script src="js/demo.js"></script>
 </body>
 </html>
