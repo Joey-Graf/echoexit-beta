@@ -291,6 +291,7 @@
             width: 20px;
             height: 20px;
             accent-color: var(--primary);
+            pointer-events: none;
         }
         
         .subscription-info {
@@ -1164,13 +1165,24 @@
         </div>
         
         <div class="demo-body">
-            <!-- Step 1: Welcome -->
+            <!-- Step 1: Welcome with Social Proof Ticker -->
             <div class="step active" id="step1">
                 <div class="welcome-icon">🔍</div>
                 <div class="welcome-text">
                     <h2>Your Digital Life After Death</h2>
                     <p>Discover how to save your family money AND preserve your memories forever. This interactive demo shows you exactly what happens to your 130+ accounts and how to create a beautiful digital memorial.</p>
                 </div>
+                
+                <!-- Social Proof Ticker -->
+                <div style="background: linear-gradient(135deg, rgba(29, 181, 181, 0.05), rgba(23, 153, 155, 0.02)); padding: 1rem; border-radius: 8px; margin: 2rem 0; text-align: center;">
+                    <p style="color: var(--primary); font-weight: 600;">
+                        🛡️ <span id="familiesProtected">237</span> families protected this month
+                    </p>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Join thousands securing their digital legacy
+                    </p>
+                </div>
+                
                 <div class="navigation">
                     <div></div>
                     <button class="btn btn-primary" onclick="nextStep()">Start Your Journey →</button>
@@ -1203,13 +1215,24 @@
                 </div>
             </div>
             
-            <!-- Step 3: Subscription Selection -->
+            <!-- Step 3: Subscription Selection with Tooltips -->
             <div class="step" id="step3">
                 <h2>Your Active Subscriptions</h2>
                 <p>Select all services you currently pay for</p>
                 
+                <!-- NEW: Live Total Display -->
+                <div style="background: linear-gradient(135deg, rgba(29, 181, 181, 0.05), rgba(23, 153, 155, 0.02)); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Current Monthly Waste</p>
+                    <p style="font-size: 2rem; color: #E65100; font-weight: bold; margin: 0.5rem 0;">
+                        $<span id="liveMonthlyTotal">40.97</span>/month
+                    </p>
+                    <p style="color: var(--text-light); font-size: 0.85rem;">
+                        That's $<span id="liveYearlyTotal">491.64</span> per year
+                    </p>
+                </div>
+                
                 <div class="subscriptions-grid">
-                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Netflix', 15.99)">
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Netflix', 15.99)" title="$191.88 per year">
                         <input type="checkbox" checked>
                         <div class="subscription-info">
                             <span class="subscription-name">Netflix</span>
@@ -1217,7 +1240,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Spotify', 9.99)">
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Spotify', 9.99)" title="$119.88 per year">
                         <input type="checkbox" checked>
                         <div class="subscription-info">
                             <span class="subscription-name">Spotify</span>
@@ -1225,7 +1248,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Disney+', 7.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Disney+', 7.99)" title="$95.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Disney+</span>
@@ -1233,7 +1256,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Amazon Prime', 14.99)">
+                    <div class="subscription-item selected" onclick="toggleSubscription(this, 'Amazon Prime', 14.99)" title="$179.88 per year">
                         <input type="checkbox" checked>
                         <div class="subscription-info">
                             <span class="subscription-name">Amazon Prime</span>
@@ -1241,7 +1264,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'HBO Max', 15.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'HBO Max', 15.99)" title="$191.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">HBO Max</span>
@@ -1249,7 +1272,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'ChatGPT Plus', 20.00)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'ChatGPT Plus', 20.00)" title="$240.00 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">ChatGPT Plus</span>
@@ -1257,7 +1280,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Gym Membership', 49.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Gym Membership', 49.99)" title="$599.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Gym Membership</span>
@@ -1265,7 +1288,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Cloud Storage', 9.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Cloud Storage', 9.99)" title="$119.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Cloud Storage</span>
@@ -1273,7 +1296,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Adobe Creative', 54.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Adobe Creative', 54.99)" title="$659.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Adobe Creative</span>
@@ -1281,7 +1304,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'YouTube Premium', 13.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'YouTube Premium', 13.99)" title="$167.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">YouTube Premium</span>
@@ -1289,7 +1312,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Hulu', 17.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Hulu', 17.99)" title="$215.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Hulu</span>
@@ -1297,7 +1320,7 @@
                         </div>
                     </div>
                     
-                    <div class="subscription-item" onclick="toggleSubscription(this, 'Apple Music', 10.99)">
+                    <div class="subscription-item" onclick="toggleSubscription(this, 'Apple Music', 10.99)" title="$131.88 per year">
                         <input type="checkbox">
                         <div class="subscription-info">
                             <span class="subscription-name">Apple Music</span>
@@ -1323,7 +1346,7 @@
                 </div>
             </div>
             
-            <!-- Step 4: Impact Timeline (NEWLY ADDED) -->
+            <!-- Step 4: Impact Timeline with Interactive Slider -->
             <div class="step" id="step4">
                 <h2>💔 Without EchoExit...</h2>
                 
@@ -1355,13 +1378,51 @@
                     </div>
                 </div>
                 
+                <!-- New Interactive Impact Calculator -->
+                <div style="background: linear-gradient(135deg, rgba(253, 180, 98, 0.1), rgba(253, 180, 98, 0.05)); padding: 2rem; border-radius: 12px; margin: 2rem 0; border-left: 4px solid var(--accent);">
+                    <h3 style="text-align: center; color: var(--text); margin-bottom: 1.5rem;">See the Total Impact Over Time</h3>
+                    
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <label for="yearsSlider" style="display: block; margin-bottom: 1rem; color: var(--text-light); font-weight: 600;">
+                            Slide to see impact over <span id="yearDisplay" style="color: var(--accent); font-size: 1.2rem;">1</span> year(s)
+                        </label>
+                        <input type="range" id="yearsSlider" min="1" max="20" value="1" style="width: 100%; max-width: 400px;" onchange="updateImpactCalculation()" oninput="updateImpactCalculation()">
+                        
+                        <div style="display: flex; justify-content: space-between; max-width: 400px; margin: 0.5rem auto; font-size: 0.8rem; color: var(--text-light);">
+                            <span>1 Year</span>
+                            <span>5 Years</span>
+                            <span>10 Years</span>
+                            <span>20 Years</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                        <div style="text-align: center; background: white; padding: 1.5rem; border-radius: 12px;">
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">Money Lost</p>
+                            <p style="font-size: 2rem; color: #E65100; font-weight: bold;">$<span id="totalLoss">491.64</span></p>
+                        </div>
+                        <div style="text-align: center; background: white; padding: 1.5rem; border-radius: 12px;">
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">Hours Wasted</p>
+                            <p style="font-size: 2rem; color: var(--primary); font-weight: bold;"><span id="hoursWasted">47</span>h</p>
+                        </div>
+                        <div style="text-align: center; background: white; padding: 1.5rem; border-radius: 12px;">
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">Accounts Locked</p>
+                            <p style="font-size: 2rem; color: var(--text); font-weight: bold;">130+</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-light); font-style: italic;">
+                        That's enough to pay for a family vacation, college tuition, or a car down payment!
+                    </p>
+                </div>
+                
                 <div class="navigation">
                     <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
                     <button class="btn btn-primary" onclick="nextStep()">Build Your Legacy →</button>
                 </div>
             </div>
 
-            <!-- Step 5: Legacy Introduction (NEWLY ADDED) -->
+            <!-- Step 5: Legacy Introduction -->
             <div class="step" id="step5">
                 <div class="welcome-icon">🕊️</div>
                 <div class="welcome-text">
@@ -1374,7 +1435,7 @@
                 </div>
             </div>
 
-            <!-- Step 6: Memorial Template Selection (NEWLY ADDED) -->
+            <!-- Step 6: Memorial Template Selection -->
             <div class="step" id="step6">
                 <h2>Choose Your Memorial Style</h2>
                 <p>Select a template that reflects your personality</p>
@@ -1411,7 +1472,7 @@
                 </div>
             </div>
 
-            <!-- Step 7: Photo Selection (NEWLY ADDED) -->
+            <!-- Step 7: Photo Selection -->
             <div class="step" id="step7">
                 <h2>Select Memorial Photos</h2>
                 <p id="photoCount">3 photos selected for your memorial</p>
@@ -1473,7 +1534,7 @@
                     </p>
                 </div>
                 
-                <button class="add-btn" style="margin-top: 1rem;">+ Upload Custom Photos</button>
+                <button class="add-btn" style="margin-top: 1rem;" onclick="alert('Upload feature would be available in the full version')">+ Upload Custom Photos</button>
                 
                 <div class="navigation">
                     <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
@@ -1481,7 +1542,7 @@
                 </div>
             </div>
 
-            <!-- Step 8: Life Achievements (NEWLY ADDED) -->
+            <!-- Step 8: Life Achievements -->
             <div class="step" id="step8">
                 <h2>Your Life Story</h2>
                 <p>Share your proudest moments and passions</p>
@@ -1574,7 +1635,7 @@
                 </div>
             </div>
 
-            <!-- Step 9: Final Message (NEWLY ADDED) -->
+            <!-- Step 9: Final Message -->
             <div class="step" id="step9">
                 <h2>Your Final Message</h2>
                 <p>What do you want people to remember?</p>
@@ -1602,8 +1663,8 @@
                 <button class="enhance-btn" onclick="enhanceMessage()">✨ Enhance with AI</button>
                 
                 <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
-                    <button class="add-btn">🎤 Record Audio Message</button>
-                    <button class="add-btn">🎥 Record Video Message</button>
+                    <button class="add-btn" onclick="alert('Audio recording would be available in the full version')">🎤 Record Audio Message</button>
+                    <button class="add-btn" onclick="alert('Video recording would be available in the full version')">🎥 Record Video Message</button>
                 </div>
                 
                 <div class="navigation">
@@ -1612,7 +1673,7 @@
                 </div>
             </div>
 
-            <!-- Step 10: Memorial Preview (NEWLY ADDED) -->
+            <!-- Step 10: Memorial Preview -->
             <div class="step" id="step10">
                 <h2 style="text-align: center;">Your Digital Memorial Preview</h2>
                 
@@ -1674,4 +1735,669 @@
                 
                 <div class="navigation">
                     <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
-                    <button class="
+                    <button class="btn btn-primary" onclick="nextStep()">Additional Features →</button>
+                </div>
+            </div>
+
+            <!-- Step 11: Additional Features -->
+            <div class="step" id="step11">
+                <h2>Additional Legacy Features</h2>
+                <p>Customize how your legacy lives on</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>📅 Scheduled Messages</h4>
+                        <p>Send birthday wishes, anniversary messages, and milestone congratulations for years to come</p>
+                        <button class="add-btn" onclick="showFeatureDetails('scheduled')">Schedule Messages</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🎁 Digital Asset Transfer</h4>
+                        <p>Automatically transfer photos, documents, and digital assets to designated beneficiaries</p>
+                        <button class="add-btn" onclick="showFeatureDetails('assets')">Set Beneficiaries</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>💝 Charity Donations</h4>
+                        <p>Set up automatic donations to your favorite charities in your memory</p>
+                        <button class="add-btn" onclick="showFeatureDetails('charity')">Choose Charities</button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📖 Life Story Book</h4>
+                        <p>Create a printed book of your life story and memories for family</p>
+                        <button class="add-btn" onclick="showFeatureDetails('book')">Design Book</button>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Final Summary →</button>
+                </div>
+            </div>
+            
+            <!-- Step 12: Complete Summary -->
+            <div class="step" id="step12">
+                <h2 style="text-align: center;">
+                    <span id="summaryName">John</span>, Your Digital Legacy is Ready!
+                </h2>
+                
+                <div class="final-summary">
+                    <h3 style="text-align: center; color: #1DB5B5; margin-bottom: 1.5rem;">
+                        Complete Protection + Beautiful Memorial
+                    </h3>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-section">
+                            <h3>💰 Financial Protection</h3>
+                            <ul class="summary-list">
+                                <li>Save family $<span id="summaryYearly">491.64</span>/year</li>
+                                <li><span id="summaryAccounts">3</span> subscriptions auto-canceled</li>
+                                <li>47 hours of work prevented</li>
+                                <li>Zero hassle for loved ones</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="summary-section">
+                            <h3>🕊️ Digital Memorial</h3>
+                            <ul class="summary-list">
+                                <li>Beautiful memorial website</li>
+                                <li>Photo galleries preserved</li>
+                                <li>Life achievements documented</li>
+                                <li>Final messages delivered</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <p style="font-size: 1.2rem; color: #1A2B2E; font-weight: 600;">
+                            Total Value: Priceless Peace of Mind
+                        </p>
+                        <p style="color: #4A6B70; margin-top: 0.5rem;">
+                            Your family protected, your memories preserved forever
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Your Personalized Plan</h3>
+                    <div class="pricing-comparison">
+                        <div>
+                            <p class="price-label">Regular Price</p>
+                            <p class="price-old">$19.99/month</p>
+                        </div>
+                        <div>
+                            <p class="price-label special">Beta Special</p>
+                            <p class="price-new">$9.99/month</p>
+                        </div>
+                    </div>
+                    <p class="discount-badge">
+                        🎉 50% OFF for Beta Users - Lifetime Discount!
+                    </p>
+                    
+                    <div id="offerTimer"></div>
+                </div>
+                
+                <button class="btn btn-cta" onclick="signUp()">
+                    Start Protecting Your Legacy Now →
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; color: #4A6B70;">
+                    Cancel anytime • 30-day money-back guarantee • Bank-level security
+                </p>
+                
+                <div class="navigation" style="margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="restartDemo()">Start Over</button>
+                    <button class="btn btn-primary" onclick="goToMainSite()">Back to Main Site</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript - ALL FUNCTIONS IN GLOBAL SCOPE -->
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 12;
+        let impactInterval = null; // For animation cleanup
+        let userData = {
+            name: '',
+            spouse: '',
+            motto: '',
+            subscriptions: [],
+            monthlyTotal: 40.97,
+            yearlyTotal: 491.64,
+            selectedTemplate: 'classic',
+            selectedPhotos: ['Wedding Day', 'Family Vacation', 'Kids\' Birth'],
+            achievements: {
+                education: [
+                    'MBA from Harvard Business School',
+                    'Founded two successful startups',
+                    '30 years in technology leadership'
+                ],
+                hobbies: [
+                    'Climbed 14 mountain peaks',
+                    'Jazz pianist for 20 years',
+                    'Published 3 novels',
+                    'Traveled to 47 countries'
+                ],
+                family: [
+                    'Married 25 wonderful years',
+                    'Raised 3 amazing children',
+                    'Coached little league for 10 years',
+                    'Volunteered at food bank weekly'
+                ],
+                legacy: [
+                    'Always put family first',
+                    'Mentored dozens of young professionals'
+                ]
+            },
+            messageTone: 'warm',
+            finalMessage: 'To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments. Remember me not with sadness, but with the joy we shared. Take care of each other, chase your dreams, and never forget to tell the people you love how much they mean to you. Until we meet again...'
+        };
+        
+        // NEW: Impact calculation function for slider
+        function updateImpactCalculation() {
+            const slider = document.getElementById('yearsSlider');
+            const yearDisplay = document.getElementById('yearDisplay');
+            const totalLoss = document.getElementById('totalLoss');
+            const hoursWasted = document.getElementById('hoursWasted');
+            
+            if (slider && yearDisplay && totalLoss && hoursWasted) {
+                const years = parseInt(slider.value);
+                yearDisplay.textContent = years;
+                
+                const totalMoney = (userData.monthlyTotal * 12 * years).toFixed(2);
+                const totalHours = 47 * years; // Assuming 47 hours per year
+                
+                // Animate the numbers
+                animateValue(totalLoss, parseFloat(totalLoss.textContent.replace(/,/g, '')), parseFloat(totalMoney), 500);
+                animateValue(hoursWasted, parseInt(hoursWasted.textContent), totalHours, 500);
+            }
+        }
+        
+        // NEW: Smooth number animation
+        function animateValue(element, start, end, duration) {
+            const startTimestamp = Date.now();
+            const step = (timestamp) => {
+                const progress = Math.min((Date.now() - startTimestamp) / duration, 1);
+                const current = start + (end - start) * progress;
+                
+                if (element.id === 'totalLoss') {
+                    element.textContent = current.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // NEW: Animate social proof counter
+        function animateSocialProof() {
+            const counter = document.getElementById('familiesProtected');
+            if (counter) {
+                const baseNumber = 237;
+                setInterval(() => {
+                    const randomIncrease = Math.floor(Math.random() * 3) + 1;
+                    const currentValue = parseInt(counter.textContent);
+                    counter.textContent = currentValue + randomIncrease;
+                }, 30000); // Update every 30 seconds
+            }
+        }
+        
+        // Navigation functions - MUST BE GLOBAL
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Save current step data
+                if (currentStep === 2) {
+                    userData.name = document.getElementById('userName').value || 'John';
+                    userData.spouse = document.getElementById('spouseName').value || 'Sarah';
+                    userData.motto = document.getElementById('lifeMotto').value || 'Living one adventure at a time';
+                }
+                
+                currentStep++;
+                showStep(currentStep);
+                
+                // Special actions for specific steps
+                if (currentStep === 4) {
+                    updateImpactDisplay();
+                    startImpactAnimation();
+                } else if (currentStep === 10) {
+                    updateMemorialPreview();
+                } else if (currentStep === 12) {
+                    updateFinalSummary();
+                    startCountdown();
+                }
+            }
+        }
+        
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+        
+        function showStep(stepNumber) {
+            // Hide all steps
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => step.classList.remove('active'));
+            
+            // Show current step
+            const currentStepEl = document.getElementById('step' + stepNumber);
+            if (currentStepEl) {
+                currentStepEl.classList.add('active');
+            }
+            
+            // Update progress bar
+            const progress = (stepNumber / totalSteps) * 100;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+            
+            // Update step indicators
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, index) => {
+                if (index < stepNumber) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            // Update main title based on phase
+            const mainTitle = document.getElementById('mainTitle');
+            if (mainTitle) {
+                if (stepNumber <= 4) {
+                    mainTitle.textContent = 'Your Digital Death Calculator';
+                } else if (stepNumber <= 11) {
+                    mainTitle.textContent = 'Your Digital Memorial Builder';
+                } else {
+                    mainTitle.textContent = 'Your Digital Legacy';
+                }
+            }
+        }
+        
+        // Subscription functions
+        function toggleSubscription(element, name, price) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected');
+            
+            if (checkbox.checked) {
+                if (!userData.subscriptions.find(s => s.name === name)) {
+                    userData.subscriptions.push({ name, price });
+                }
+            } else {
+                userData.subscriptions = userData.subscriptions.filter(s => s.name !== name);
+            }
+            
+            calculateTotal();
+        }
+        
+        function addCustomSubscription() {
+            const nameEl = document.getElementById('customName');
+            const priceEl = document.getElementById('customPrice');
+            
+            if (nameEl && priceEl) {
+                const name = nameEl.value;
+                const price = parseFloat(priceEl.value);
+                
+                if (name && price) {
+                    userData.subscriptions.push({ name, price });
+                    calculateTotal();
+                    nameEl.value = '';
+                    priceEl.value = '';
+                    alert(`Added ${name} for ${price.toFixed(2)}/month`);
+                }
+            }
+        }
+        
+        function calculateTotal() {
+            userData.monthlyTotal = userData.subscriptions.reduce((total, sub) => total + sub.price, 0);
+            userData.yearlyTotal = userData.monthlyTotal * 12;
+            
+            // Update all display elements
+            const monthlyEl = document.getElementById('monthlyTotal');
+            const yearlyEl = document.getElementById('yearlyTotal');
+            const liveMonthlyEl = document.getElementById('liveMonthlyTotal');
+            const liveYearlyEl = document.getElementById('liveYearlyTotal');
+            
+            if (monthlyEl) monthlyEl.textContent = userData.monthlyTotal.toFixed(2);
+            if (yearlyEl) yearlyEl.textContent = userData.yearlyTotal.toFixed(2);
+            if (liveMonthlyEl) {
+                animateValue(liveMonthlyEl, parseFloat(liveMonthlyEl.textContent), userData.monthlyTotal, 300);
+            }
+            if (liveYearlyEl) {
+                animateValue(liveYearlyEl, parseFloat(liveYearlyEl.textContent), userData.yearlyTotal, 300);
+            }
+        }
+        
+        // Impact display functions
+        function updateImpactDisplay() {
+            const spouseEl = document.getElementById('spouseDisplay');
+            const monthlyEl = document.getElementById('monthlyImpact');
+            const yearlyEl = document.getElementById('yearlyImpact');
+            
+            if (spouseEl) spouseEl.textContent = userData.spouse;
+            if (monthlyEl) monthlyEl.textContent = userData.monthlyTotal.toFixed(2);
+            if (yearlyEl) yearlyEl.textContent = userData.yearlyTotal.toFixed(2);
+        }
+        
+        function startImpactAnimation() {
+            // Remove any existing counter
+            const existingCounter = document.getElementById('impactCounter');
+            if (existingCounter) {
+                existingCounter.remove();
+            }
+            
+            let months = 0;
+            const counter = document.createElement('div');
+            counter.id = 'impactCounter';
+            counter.innerHTML = `<h3>Without EchoExit, your family loses:</h3><p style="font-size: 2rem; color: #E65100; font-weight: bold;">$0.00</p>`;
+            
+            const timeline = document.querySelector('#step4 .timeline');
+            if (timeline && timeline.parentNode) {
+                timeline.parentNode.insertBefore(counter, timeline.nextSibling);
+            }
+            
+            const interval = setInterval(() => {
+                months++;
+                const loss = (userData.monthlyTotal * months).toFixed(2);
+                counter.querySelector('p').textContent = `${loss}`;
+                
+                if (months >= 12) {
+                    clearInterval(interval);
+                    counter.innerHTML += `<p style="color: #4A6B70; margin-top: 0.5rem;">Plus countless hours of stress and lost memories</p>`;
+                }
+            }, 200);
+        }
+        
+        // Template selection
+        function selectTemplate(element, templateName) {
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            userData.selectedTemplate = templateName;
+        }
+        
+        // Photo selection
+        function togglePhoto(element) {
+            element.classList.toggle('selected');
+            const photoName = element.querySelector('span:last-child').textContent;
+            
+            if (element.classList.contains('selected')) {
+                if (!userData.selectedPhotos.includes(photoName)) {
+                    userData.selectedPhotos.push(photoName);
+                }
+            } else {
+                userData.selectedPhotos = userData.selectedPhotos.filter(p => p !== photoName);
+            }
+            
+            const countEl = document.getElementById('photoCount');
+            if (countEl) {
+                countEl.textContent = `${userData.selectedPhotos.length} photos selected for your memorial`;
+            }
+        }
+        
+        // Achievement functions
+        function addAchievement(category) {
+            const categoryEl = document.querySelector(`.achievement-category[data-category="${category}"]`);
+            if (!categoryEl) return;
+            
+            const itemsContainer = categoryEl.querySelector('.achievement-items');
+            if (!itemsContainer) return;
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'achievement-item';
+            newItem.innerHTML = `
+                <input type="text" placeholder="Enter achievement..." onblur="saveAchievements()">
+                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+            `;
+            
+            itemsContainer.appendChild(newItem);
+            newItem.querySelector('input').focus();
+        }
+        
+        function removeAchievement(button) {
+            button.parentElement.remove();
+            saveAchievements();
+        }
+        
+        function saveAchievements() {
+            const categories = ['education', 'hobbies', 'family', 'legacy'];
+            
+            categories.forEach(category => {
+                const categoryEl = document.querySelector(`.achievement-category[data-category="${category}"]`);
+                if (categoryEl) {
+                    const inputs = categoryEl.querySelectorAll('input[type="text"]');
+                    userData.achievements[category] = Array.from(inputs)
+                        .map(input => input.value)
+                        .filter(value => value.trim() !== '');
+                }
+            });
+        }
+        
+        // Message tone selection
+        function selectTone(button, tone) {
+            document.querySelectorAll('.tone-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            userData.messageTone = tone;
+            
+            // Update preview based on tone
+            const previews = {
+                warm: 'To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments...',
+                inspirational: 'Let my life be a testament to the power of dreams and determination. Every challenge was an opportunity, every setback a lesson...',
+                humorous: 'Well, if you\'re reading this, I guess I finally found a way to get the last word! But seriously, thanks for stopping by...',
+                formal: 'I wish to express my deepest gratitude to all who have been part of my life\'s journey. Your contributions have been invaluable...',
+                spiritual: 'As I transition to the next realm, I leave you with peace and blessings. My spirit remains with you always...',
+                poetic: 'Like leaves upon the autumn wind, we dance through life\'s brief day. Though I have gone, my love remains, forever here to stay...'
+            };
+            
+            const previewEl = document.getElementById('messagePreview');
+            if (previewEl) {
+                previewEl.textContent = previews[tone];
+            }
+        }
+        
+        function enhanceMessage() {
+            alert('AI enhancement would improve your message here. This is a demo feature.');
+        }
+        
+        // Memorial preview
+        function updateMemorialPreview() {
+            const nameEl = document.getElementById('memorialName');
+            const mottoEl = document.getElementById('memorialMotto');
+            const urlEl = document.getElementById('memorialUrl');
+            
+            if (nameEl) nameEl.textContent = userData.name + ' Doe';
+            if (mottoEl) mottoEl.textContent = userData.motto;
+            if (urlEl) urlEl.textContent = userData.name.toLowerCase().replace(/\s+/g, '-') + '-doe';
+            
+            // Update photos
+            const photosContainer = document.getElementById('memorialPhotosContainer');
+            if (photosContainer) {
+                photosContainer.innerHTML = userData.selectedPhotos.map(photo => {
+                    const emoji = getPhotoEmoji(photo);
+                    return `<div class="memorial-photo-item">${emoji}<br>${photo}</div>`;
+                }).join('');
+            }
+            
+            // Update achievements
+            const achievementsContainer = document.getElementById('memorialAchievementsContainer');
+            if (achievementsContainer) {
+                achievementsContainer.innerHTML = Object.entries(userData.achievements).map(([category, items]) => {
+                    if (items.length === 0) return '';
+                    const icon = getCategoryIcon(category);
+                    return `
+                        <div class="memorial-achievement-group">
+                            <h4>${icon} ${formatCategoryName(category)}</h4>
+                            <ul>${items.map(item => `<li>${item}</li>`).join('')}</ul>
+                        </div>
+                    `;
+                }).filter(html => html !== '').join('');
+            }
+            
+            // Update message
+            const messageEl = document.getElementById('memorialMessageText');
+            const finalMessageEl = document.getElementById('finalMessage');
+            if (messageEl && finalMessageEl) {
+                messageEl.textContent = finalMessageEl.value || userData.finalMessage;
+            }
+        }
+        
+        function showMemorialSection(section, element) {
+            // Update nav items
+            document.querySelectorAll('.memorial-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // Update sections
+            document.querySelectorAll('.memorial-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            const targetSection = document.getElementById('memorial-' + section);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+        }
+        
+        function simulateMemoryAdd() {
+            const countEl = document.getElementById('visitorCount');
+            if (countEl) {
+                countEl.textContent = parseInt(countEl.textContent) + 1;
+            }
+            alert('Memory added! (Demo feature)');
+        }
+        
+        // Feature details
+        function showFeatureDetails(feature) {
+            const details = {
+                scheduled: 'Schedule messages to be delivered on specific dates after you pass',
+                assets: 'Designate who receives your digital photos, documents, and accounts',
+                charity: 'Set up recurring donations to continue your philanthropic legacy',
+                book: 'Create a physical keepsake with your photos and life story'
+            };
+            alert(details[feature] + '\n\n(This is a demo feature)');
+        }
+        
+        // Final summary
+        function updateFinalSummary() {
+            const nameEl = document.getElementById('summaryName');
+            const yearlyEl = document.getElementById('summaryYearly');
+            const accountsEl = document.getElementById('summaryAccounts');
+            
+            if (nameEl) nameEl.textContent = userData.name;
+            if (yearlyEl) yearlyEl.textContent = userData.yearlyTotal.toFixed(2);
+            if (accountsEl) accountsEl.textContent = userData.subscriptions.length;
+        }
+        
+        function startCountdown() {
+            let seconds = 600; // 10 minutes
+            const timerEl = document.getElementById('offerTimer');
+            if (!timerEl) return;
+            
+            const updateTimer = () => {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerEl.innerHTML = `
+                    <p style="color: #E65100; font-weight: bold;">
+                        ⏰ Special offer expires in: ${minutes}:${secs.toString().padStart(2, '0')}
+                    </p>
+                `;
+                
+                if (seconds > 0) {
+                    seconds--;
+                    setTimeout(updateTimer, 1000);
+                } else {
+                    timerEl.innerHTML = '<p style="color: #E53E3E;">Offer expired!</p>';
+                }
+            };
+            
+            updateTimer();
+        }
+        
+        // Action functions
+        function signUp() {
+            alert('Thank you for joining EchoExit! You would be redirected to the signup page.');
+            window.location.href = 'index.html#waitlist';
+        }
+        
+        function restartDemo() {
+            currentStep = 1;
+            showStep(1);
+            // Reset user data
+            userData.subscriptions = [
+                { name: 'Netflix', price: 15.99 },
+                { name: 'Spotify', price: 9.99 },
+                { name: 'Amazon Prime', price: 14.99 }
+            ];
+            calculateTotal();
+        }
+        
+        function goToMainSite() {
+            window.location.href = 'index.html';
+        }
+        
+        // Helper functions
+        function getPhotoEmoji(photoName) {
+            const emojiMap = {
+                'Wedding Day': '📸',
+                'Family Vacation': '🏖️',
+                'Graduation': '🎓',
+                'Kids\' Birth': '👶',
+                'Adventures': '🏔️',
+                'Holidays': '🎄',
+                'Achievements': '🏆',
+                'Friends': '👥',
+                'Home': '🏠',
+                'Hobbies': '🎨',
+                'Travel': '🌅',
+                'Celebrations': '🎂'
+            };
+            return emojiMap[photoName] || '📷';
+        }
+        
+        function getCategoryIcon(category) {
+            const icons = {
+                education: '🎓',
+                hobbies: '🎨',
+                family: '👨‍👩‍👧‍👦',
+                legacy: '🌟'
+            };
+            return icons[category] || '📌';
+        }
+        
+        function formatCategoryName(category) {
+            const names = {
+                education: 'Education & Career',
+                hobbies: 'Hobbies & Passions',
+                family: 'Family & Community',
+                legacy: 'Values & Legacy'
+            };
+            return names[category] || category;
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Initialize with default subscriptions
+            userData.subscriptions = [
+                { name: 'Netflix', price: 15.99 },
+                { name: 'Spotify', price: 9.99 },
+                { name: 'Amazon Prime', price: 14.99 }
+            ];
+            calculateTotal();
+            animateSocialProof();
+        });
+    </script>
+</body>
+</html>
