@@ -9,9 +9,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- External CSS (optional - uncomment if you want to use external CSS file) -->
-    <!-- <link rel="stylesheet" href="demo.css"> -->
-    
     <style>
         * {
             margin: 0;
@@ -44,7 +41,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation Bar */
         .nav-bar {
             position: fixed;
             top: 0;
@@ -115,7 +111,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             position: relative;
-            margin-top: 80px; /* Account for fixed nav */
+            margin-top: 80px;
         }
         
         .progress-bar {
@@ -1039,30 +1035,6 @@
             border-radius: 8px;
         }
         
-        .signup-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-        }
-        
-        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 0 10px;
@@ -1152,24 +1124,6 @@
     </style>
 </head>
 <body>
-    <!-- Check authentication before page loads -->
-    <script>
-    (function() {
-        const AUTH_KEY = 'echoexit_staging_auth';
-        const AUTH_EXPIRY_KEY = 'echoexit_staging_expiry';
-        
-        const isAuthenticated = sessionStorage.getItem(AUTH_KEY);
-        const authExpiry = sessionStorage.getItem(AUTH_EXPIRY_KEY);
-        const now = new Date().getTime();
-        
-        if (!isAuthenticated || !authExpiry || now > parseInt(authExpiry)) {
-            sessionStorage.removeItem(AUTH_KEY);
-            sessionStorage.removeItem(AUTH_EXPIRY_KEY);
-            window.location.href = 'index.html';
-        }
-    })();
-    </script>
-
     <!-- Navigation Bar -->
     <nav class="nav-bar">
         <div class="nav-container">
@@ -1249,10 +1203,6 @@
                 </div>
             </div>
             
-            <!-- All other steps remain exactly the same as in the original file -->
-            <!-- Steps 3-12 continue here with identical content... -->
-            
-            <!-- I'm including just the structure to show it's the same -->
             <!-- Step 3: Subscription Selection -->
             <div class="step" id="step3">
                 <h2>Your Active Subscriptions</h2>
@@ -1355,7 +1305,6 @@
                         </div>
                     </div>
                     
-                    <!-- Custom Subscription Input -->
                     <div class="custom-subscription">
                         <input type="text" id="customName" placeholder="Service name">
                         <input type="number" id="customPrice" placeholder="Monthly cost ($)" step="0.01">
@@ -1374,88 +1323,355 @@
                 </div>
             </div>
             
-            <!-- Continue with all other steps 4-12 exactly as they were... -->
-            <!-- The content is identical to your original file -->
-            
-            <!-- Step 12: Complete Summary (showing last step for reference) -->
-            <div class="step" id="step12">
-                <h2 style="text-align: center;">
-                    <span id="summaryName">John</span>, Your Digital Legacy is Ready!
-                </h2>
+            <!-- Step 4: Impact Timeline (NEWLY ADDED) -->
+            <div class="step" id="step4">
+                <h2>💔 Without EchoExit...</h2>
                 
-                <div class="final-summary">
-                    <h3 style="text-align: center; color: #1DB5B5; margin-bottom: 1.5rem;">
-                        Complete Protection + Beautiful Memorial
-                    </h3>
-                    
-                    <div class="summary-grid">
-                        <div class="summary-section">
-                            <h3>💰 Financial Protection</h3>
-                            <ul class="summary-list">
-                                <li>Save family $<span id="summaryYearly">491.64</span>/year</li>
-                                <li><span id="summaryAccounts">3</span> subscriptions auto-canceled</li>
-                                <li>47 hours of work prevented</li>
-                                <li>Zero hassle for loved ones</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="summary-section">
-                            <h3>🕊️ Digital Memorial</h3>
-                            <ul class="summary-list">
-                                <li>Beautiful memorial website</li>
-                                <li>Photo galleries preserved</li>
-                                <li>Life achievements documented</li>
-                                <li>Final messages delivered</li>
-                            </ul>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Day 1: Tragedy Strikes</h3>
+                            <p><span id="spouseDisplay">Sarah</span> is overwhelmed with grief and funeral arrangements.</p>
                         </div>
                     </div>
                     
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <p style="font-size: 1.2rem; color: #1A2B2E; font-weight: 600;">
-                            Total Value: Priceless Peace of Mind
-                        </p>
-                        <p style="color: #4A6B70; margin-top: 0.5rem;">
-                            Your family protected, your memories preserved forever
-                        </p>
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: #FDB462;"></div>
+                        <div class="timeline-content">
+                            <h3>Month 1: Bills Keep Coming</h3>
+                            <p class="impact-number">$<span id="monthlyImpact">40.97</span> charged</p>
+                            <p>No access to accounts, no way to cancel.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="border-color: #1DB5B5;"></div>
+                        <div class="timeline-content">
+                            <h3>Year 1: Mounting Losses</h3>
+                            <p class="impact-number">$<span id="yearlyImpact">491.64</span> wasted</p>
+                            <p>Plus precious photos and memories locked forever.</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="pricing-card">
-                    <h3>Your Personalized Plan</h3>
-                    <div class="pricing-comparison">
-                        <div>
-                            <p class="price-label">Regular Price</p>
-                            <p class="price-old">$19.99/month</p>
-                        </div>
-                        <div>
-                            <p class="price-label special">Beta Special</p>
-                            <p class="price-new">$9.99/month</p>
-                        </div>
-                    </div>
-                    <p class="discount-badge">
-                        🎉 50% OFF for Beta Users - Lifetime Discount!
-                    </p>
-                    
-                    <div id="offerTimer"></div>
-                </div>
-                
-                <button class="btn btn-cta" onclick="signUp()">
-                    Start Protecting Your Legacy Now →
-                </button>
-                
-                <p style="text-align: center; margin-top: 1rem; color: #4A6B70;">
-                    Cancel anytime • 30-day money-back guarantee • Bank-level security
-                </p>
-                
-                <div class="navigation" style="margin-top: 2rem;">
-                    <button class="btn btn-secondary" onclick="restartDemo()">Start Over</button>
-                    <button class="btn btn-primary" onclick="goToMainSite()">Back to Main Site</button>
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Build Your Legacy →</button>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Include the demo.js file -->
-    <script src="js/demo.js"></script>
-</body>
-</html>
+
+            <!-- Step 5: Legacy Introduction (NEWLY ADDED) -->
+            <div class="step" id="step5">
+                <div class="welcome-icon">🕊️</div>
+                <div class="welcome-text">
+                    <h2>Now Let's Preserve Your Legacy</h2>
+                    <p>Beyond saving money, ensure your memories, achievements, and final messages live on forever. Create a beautiful digital memorial that celebrates your life.</p>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Create Memorial →</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Memorial Template Selection (NEWLY ADDED) -->
+            <div class="step" id="step6">
+                <h2>Choose Your Memorial Style</h2>
+                <p>Select a template that reflects your personality</p>
+                
+                <div class="template-grid">
+                    <div class="template-card selected" onclick="selectTemplate(this, 'classic')">
+                        <div class="template-icon">🏛️</div>
+                        <h4>Classic</h4>
+                        <p>Timeless & Elegant</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'modern')">
+                        <div class="template-icon">✨</div>
+                        <h4>Modern</h4>
+                        <p>Clean & Contemporary</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'nature')">
+                        <div class="template-icon">🌿</div>
+                        <h4>Nature</h4>
+                        <p>Peaceful & Organic</p>
+                    </div>
+                    
+                    <div class="template-card" onclick="selectTemplate(this, 'minimal')">
+                        <div class="template-icon">⚪</div>
+                        <h4>Minimal</h4>
+                        <p>Simple & Pure</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Select Photos →</button>
+                </div>
+            </div>
+
+            <!-- Step 7: Photo Selection (NEWLY ADDED) -->
+            <div class="step" id="step7">
+                <h2>Select Memorial Photos</h2>
+                <p id="photoCount">3 photos selected for your memorial</p>
+                
+                <div class="photo-grid">
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        <span>📸</span>
+                        <span>Wedding Day</span>
+                    </div>
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        <span>🏖️</span>
+                        <span>Family Vacation</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎓</span>
+                        <span>Graduation</span>
+                    </div>
+                    <div class="photo-item selected" onclick="togglePhoto(this)">
+                        <span>👶</span>
+                        <span>Kids' Birth</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🏔️</span>
+                        <span>Adventures</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎄</span>
+                        <span>Holidays</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🏆</span>
+                        <span>Achievements</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>👥</span>
+                        <span>Friends</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🏠</span>
+                        <span>Home</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎨</span>
+                        <span>Hobbies</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🌅</span>
+                        <span>Travel</span>
+                    </div>
+                    <div class="photo-item" onclick="togglePhoto(this)">
+                        <span>🎂</span>
+                        <span>Celebrations</span>
+                    </div>
+                </div>
+                
+                <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <p style="color: var(--text-light); text-align: center;">
+                        💡 Your photos will be displayed in a beautiful gallery format on your memorial page
+                    </p>
+                </div>
+                
+                <button class="add-btn" style="margin-top: 1rem;">+ Upload Custom Photos</button>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Add Achievements →</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Life Achievements (NEWLY ADDED) -->
+            <div class="step" id="step8">
+                <h2>Your Life Story</h2>
+                <p>Share your proudest moments and passions</p>
+                
+                <div class="achievement-list">
+                    <div class="achievement-category" data-category="education">
+                        <h4>🎓 Education & Career</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="MBA from Harvard Business School" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Founded two successful startups" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="30 years in technology leadership" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('education')">+ Add Achievement</button>
+                    </div>
+                    
+                    <div class="achievement-category" data-category="hobbies">
+                        <h4>🎨 Hobbies & Passions</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Climbed 14 mountain peaks" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Jazz pianist for 20 years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Published 3 novels" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Traveled to 47 countries" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('hobbies')">+ Add Hobby</button>
+                    </div>
+                    
+                    <div class="achievement-category" data-category="family">
+                        <h4>👨‍👩‍👧‍👦 Family & Community</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Married 25 wonderful years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Raised 3 amazing children" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Coached little league for 10 years" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Volunteered at food bank weekly" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('family')">+ Add Memory</button>
+                    </div>
+                    
+                    <div class="achievement-category" data-category="legacy">
+                        <h4>🌟 Values & Legacy</h4>
+                        <div class="achievement-items">
+                            <div class="achievement-item">
+                                <input type="text" value="Always put family first" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                            <div class="achievement-item">
+                                <input type="text" value="Mentored dozens of young professionals" onblur="saveAchievements()">
+                                <button class="remove-achievement" onclick="removeAchievement(this)">×</button>
+                            </div>
+                        </div>
+                        <button class="add-achievement-btn" onclick="addAchievement('legacy')">+ Add Value</button>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Write Final Message →</button>
+                </div>
+            </div>
+
+            <!-- Step 9: Final Message (NEWLY ADDED) -->
+            <div class="step" id="step9">
+                <h2>Your Final Message</h2>
+                <p>What do you want people to remember?</p>
+                
+                <div class="message-composer">
+                    <label>Choose your tone:</label>
+                    <div class="tone-selector">
+                        <button class="tone-btn selected" onclick="selectTone(this, 'warm')">Warm & Loving</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'inspirational')">Inspirational</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'humorous')">Light & Humorous</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'formal')">Formal</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'spiritual')">Spiritual</button>
+                        <button class="tone-btn" onclick="selectTone(this, 'poetic')">Poetic</button>
+                    </div>
+                    
+                    <label style="margin-top: 1rem;">Message Preview:</label>
+                    <div id="messagePreview">To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments...</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Customize Your Message</label>
+                    <textarea id="finalMessage" rows="6" placeholder="Write your message here...">To everyone who visits this memorial, thank you for being part of my journey. Life has been an incredible adventure, filled with love, laughter, and countless precious moments. Remember me not with sadness, but with the joy we shared. Take care of each other, chase your dreams, and never forget to tell the people you love how much they mean to you. Until we meet again...</textarea>
+                </div>
+                
+                <button class="enhance-btn" onclick="enhanceMessage()">✨ Enhance with AI</button>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                    <button class="add-btn">🎤 Record Audio Message</button>
+                    <button class="add-btn">🎥 Record Video Message</button>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Preview Memorial →</button>
+                </div>
+            </div>
+
+            <!-- Step 10: Memorial Preview (NEWLY ADDED) -->
+            <div class="step" id="step10">
+                <h2 style="text-align: center;">Your Digital Memorial Preview</h2>
+                
+                <div class="memorial-preview">
+                    <div class="memorial-header">
+                        <div class="memorial-photo">👤</div>
+                        <h2 class="memorial-name"><span id="memorialName">John Doe</span></h2>
+                        <p class="memorial-dates">1968 - 2024</p>
+                        <p class="memorial-quote">"<span id="memorialMotto">Living one adventure at a time</span>"</p>
+                    </div>
+                    
+                    <div class="memorial-nav">
+                        <span class="memorial-nav-item active" onclick="showMemorialSection('photos', this)">Photos</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('story', this)">Life Story</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('message', this)">Message</span>
+                        <span class="memorial-nav-item" onclick="showMemorialSection('memories', this)">Memories</span>
+                    </div>
+                    
+                    <div class="memorial-content">
+                        <div class="memorial-section active" id="memorial-photos">
+                            <h3>Photo Memories</h3>
+                            <div id="memorialPhotosContainer"></div>
+                        </div>
+                        
+                        <div class="memorial-section" id="memorial-story">
+                            <h3>Life Achievements</h3>
+                            <div id="memorialAchievementsContainer"></div>
+                        </div>
+                        
+                        <div class="memorial-section" id="memorial-message">
+                            <h3>Final Message</h3>
+                            <div class="memorial-message">
+                                <span id="memorialMessageText">To everyone who visits this memorial...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="memorial-section" id="memorial-memories">
+                            <h3>Shared Memories</h3>
+                            <div id="memories-container">
+                                <p style="text-align: center; color: var(--text-light);">
+                                    Family and friends can add memories here
+                                </p>
+                            </div>
+                            <p style="text-align: center; margin-top: 1rem;">
+                                <span id="visitorCount">142</span> people have visited this memorial
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="memorial-actions">
+                        <button class="memorial-btn" style="background: #1DB5B5; color: white;">🔗 Share Memorial</button>
+                        <button class="memorial-btn" style="background: #F7FAFC; color: #4A6B70;" onclick="simulateMemoryAdd()">💐 Leave Memory</button>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 1rem; color: #4A6B70;">
+                    Memorial URL: <strong>echoexit.com/<span id="memorialUrl">john-doe</span></strong>
+                </p>
+                
+                <div class="navigation">
+                    <button class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    <button class="
