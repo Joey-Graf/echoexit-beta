@@ -1399,7 +1399,7 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
                         <div style="text-align: center; background: white; padding: 1.5rem; border-radius: 12px;">
                             <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">Money Lost</p>
-                            <p style="font-size: 2rem; color: #E65100; font-weight: bold;">$<span id="totalLoss">491.64</span></p>
+                            <p style="font-size: 2rem; color: #E65100; font-weight: bold;">$<span id="totalLoss">0.00</span></p>
                         </div>
                         <div style="text-align: center; background: white; padding: 1.5rem; border-radius: 12px;">
                             <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">Hours Wasted</p>
@@ -1907,8 +1907,15 @@
                 const years = parseInt(slider.value);
                 yearDisplay.textContent = years;
                 
+                // Use actual userData values, not hardcoded
                 const totalMoney = (userData.monthlyTotal * 12 * years).toFixed(2);
                 const totalHours = 47 * years; // Assuming 47 hours per year
+                
+                // Set initial value based on current userData
+                if (!totalLoss.dataset.initialized) {
+                    totalLoss.textContent = userData.yearlyTotal.toFixed(2);
+                    totalLoss.dataset.initialized = 'true';
+                }
                 
                 // Animate the numbers
                 animateValue(totalLoss, parseFloat(totalLoss.textContent.replace(/,/g, '')), parseFloat(totalMoney), 500);
